@@ -1,0 +1,76 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Leanne Graham",
+      "email": "Sincere@april.biz",
+      "address": {
+        "type": "home",
+        "street": "Kulas Light",
+        "city": "Gwenborough",
+        "state": "Karnataka",
+        "zipcode": "92998-3874"
+      },
+      "phone": "1-770-736-8031 x56442",
+      "password": "1234567878"
+    },
+    {
+      "id": 2,
+      "name": "Anil",
+      "email": "anil@gmail.com",
+      "address": {
+        "type": "office",
+        "street": "Dhule",
+        "city": "Dhule",
+        "state": "Maharastra",
+        "zipcode": "111111"
+      },
+      "phone": "9898989898",
+      "password": "1234567878"
+    },
+    {
+      "id": 3,
+      "name": "Ajay",
+      "email": "Ajay@gmail.com",
+      "address": {
+        "type": "home",
+        "street": "Wadgao Sheri",
+        "city": "Pune",
+        "state": "Maharastra",
+        "zipcode": "411014"
+      },
+      "phone": "9874563214",
+      "password": "1234567878"
+    },
+    {
+      "name": "Mangesh Landge",
+      "phone": "+918904215622",
+      "email": "mangeshbkwsu@gmail.com",
+      "password": "123",
+      "address": {
+        "type": "home",
+        "street": "near Hanuman Temple Partapur",
+        "city": "Basavakalyan",
+        "state": "Karnataka",
+        "zipcode": "585327"
+      },
+      "isChecked": true,
+      "id": 4
+    },
+    {
+      "name": "Mangesh Landge",
+      "phone": "+918904215622",
+      "email": "mangeshbkwsu@gmail.com",
+      "password": "1234",
+      "address": {
+        "type": "home",
+        "street": "near Hanuman Temple Partapur",
+        "city": "Basavakalyan",
+        "state": "Karnataka",
+        "zipcode": "585327"
+      },
+      "isChecked": true,
+      "id": 5
+    }
+  ]
+}
