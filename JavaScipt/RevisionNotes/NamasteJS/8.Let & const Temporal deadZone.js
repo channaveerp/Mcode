@@ -14,6 +14,7 @@ let ans = 5;
 // from line 11 to line 13 is temporal deadzone. whenever we try to get values in this zone outPut will be reference error.
 // when let see reDecleration then it gives SyntextError
 const c = 1000; //it will initialize undefined in phase1; and stores in seperate execution context like let;
+c= 10 // type error;
 const d;
 d = 10;
 console.log(d) // SyntextError: missing Initializer in const declaration;
