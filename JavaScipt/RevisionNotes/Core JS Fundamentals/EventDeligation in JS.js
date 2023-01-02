@@ -8,6 +8,8 @@ benifit:
 saves memory
 write less code
 DOM manuPulation
+
+// all the events are not bubbled up, onBlur, focus, resizing of window and scrolling. and many more.
 */
 
 // document.querySelector("#category").addEventListener("click", (e) => {
@@ -17,7 +19,7 @@ DOM manuPulation
 //   }
 // }); // this id eventDeligation.
 
-document.querySelector("#form").addEventListener("click", (e) => {
+document.querySelector('#form').addEventListener('click', (e) => {
   console.log(e.target.id);
   if (e.target.dataset.uppercase != undefined) {
     e.target.value = e.target.value.toUpperCase();
