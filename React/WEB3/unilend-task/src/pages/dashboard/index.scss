@@ -1,0 +1,14 @@
+@import '../../styles';
+.dashboard{
+  padding: 20px;
+}
+.transactionsContainer{
+  display: flex;
+  margin-top: 36px;
+  justify-content: space-between;
+  width: 100%;
+
+  @include lessThan(md){
+    flex-direction: column;
+  }
+}
