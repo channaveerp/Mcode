@@ -1,0 +1,5 @@
+Digital Signature:
+In the context of blockchain networks, a digital signature is attached to a message or transaction
+to prove that the sending user has adequate permissions. To create a digital
+signature you require the private key (a.k.a. signing key) associated with
+the public key of the sender of the transaction.

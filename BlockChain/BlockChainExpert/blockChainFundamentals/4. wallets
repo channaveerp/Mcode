@@ -1,0 +1,28 @@
+
+remeber these terms private key, public key and address
+
+Private Key:  of an account acts as the password for that
+    account. Any person with access to the private key can send/sign
+    transactions and access the funds associated with that private keys account.
+    Private keys should be stored in a secure location (ideally multiple secure
+    locations) and should never be shared online or with other people.
+
+Public key : A blockchain accounts public key is derived from a private key and acts as the identifier for an account. Nodes on
+    a network can validate transactions that were signed properly using an
+    account's public key. It is safe to share your public key.
+  
+  Note: a public key is a longer and less convenient form of an address.
+
+Hash Function :  are known as "one-way" functions that have
+    no known inverse. They are the foundation of modern internet security and
+    cryptography. Hash functions have the following properties.
+  
+  -Fast to compute.
+  -Generate a uniform output (a.k.a digest).
+  -No known inverse.
+  -Deterministic.
+  -Very rare hash collisions.
+
+  # Private key -> Hash fn -> Public key -> Hash fn -> address
+
+  // save the seed phrases to recover private key (12 or 24 wprd in sequence) // look in BIP39
