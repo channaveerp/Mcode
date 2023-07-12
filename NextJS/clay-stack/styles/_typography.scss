@@ -3,7 +3,7 @@
 
 $primaryText: #ffffff;
 // $headingFontFamily: var(--font-montserrat);;
-$fontFamily: var(--font-lato);
+// $fontFamily: var(--font-lato);
 
 .heading01 {
   color: $primaryText;
@@ -11,7 +11,7 @@ $fontFamily: var(--font-lato);
   letter-spacing: unset;
   margin: unset;
   font-style: normal;
-  font-weight: $font-weight-extra-bold;
+  font-weight: $font-weight-regular;
   @include font-size($font-size-h1); // 140px
   line-height: $line-height-sm;
 
@@ -29,7 +29,7 @@ $fontFamily: var(--font-lato);
   letter-spacing: unset;
   margin: unset;
   font-style: normal;
-  font-weight: $font-weight-extra-bold;
+  font-weight: $font-weight-regular;
   @include font-size($font-size-h2); // 56px
   line-height: $line-height-sm;
 
@@ -71,7 +71,7 @@ $fontFamily: var(--font-lato);
   //   font-weight: $font-weight-extra-bold;
   //   @include font-size($font-size-xxlg); //22px
   //   line-height: $line-height-sm;
-  // }
+  // }vscode-file://vscode-app/c:/Users/dell/AppData/Local/Programs/Microsoft%20VS%20Code/resources/app/out/vs/code/electron-sandbox/workbench/workbench.html
 }
 
 
@@ -81,7 +81,7 @@ $fontFamily: var(--font-lato);
   margin: unset;
   font-style: normal;
   // color: $text-color;
-  font-family: $fontFamily;
+  // font-family: $fontFamily;
   font-weight: $font-weight-regular; //400
   @include font-size($font-size-lg); // 18px
   // line-height: $font-size-lg * $line-height-sm;
@@ -97,7 +97,7 @@ $fontFamily: var(--font-lato);
   letter-spacing: unset;
   margin: unset;
   font-style: normal;
-  font-family: $fontFamily;
+  // font-family: $fontFamily;
   font-weight: $font-weight-regular; //400
   @include font-size($font-size-md); // 16px
   // line-height: $font-size-md * $line-height-sm;
@@ -109,7 +109,7 @@ $fontFamily: var(--font-lato);
   letter-spacing: unset;
   margin: unset;
   font-style: normal;
-  font-family: $fontFamily;
+  // font-family: $fontFamily;
   font-weight: $font-weight-medium; //400
   @include font-size($font-size-sm); // 14px
   // line-height: $font-size-sm * $line-height-sm;
@@ -121,7 +121,7 @@ $fontFamily: var(--font-lato);
   letter-spacing: unset;
   margin: unset;
   font-style: normal;
-  font-family: $fontFamily;
+  // font-family: $fontFamily;
   font-weight: $font-weight-regular; //400
   @include font-size($font-size-xlg); // 20px
   // line-height: $font-size-xlg * $line-height-sm;
@@ -133,7 +133,7 @@ $fontFamily: var(--font-lato);
   letter-spacing: unset;
   margin: unset;
   font-style: normal;
-  font-family: $fontFamily;
+  // font-family: $fontFamily;
   font-weight: $font-weight-regular; //400
   @include font-size($font-size-xsm); // 12px
   line-height: $line-height-sm;

@@ -1,3 +1,7 @@
+import Heroview from "./components/heroView";
+
 export default function Home() {
-  return <main>Hello</main>;
+  return <main>
+    <Heroview />
+  </main>;
 }
