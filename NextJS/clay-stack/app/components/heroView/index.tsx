@@ -11,7 +11,14 @@ export default function Heroview() {
         </div>
         <div className='frame-note'>
             <div className='note paragraph01'>Unlock the true power of liquid staking and Defi.</div>
-            <div className='note paragraph01'>Unlock the true power of liquid staking and Defi.</div>
+            <div className='eth-frame'>
+                <div>
+                    <h4 className='heading04'>Introducing Liquid Staking for Ethereum</h4>
+                    <button>Learn More</button>
+                </div>
+                {/* <div></div> */}
+                <div>X</div>
+            </div>
         </div>
         <div className='stats'>
             <p className='paragraph01'><span className='stats-name'>TVL</span><span>3,428,795 MATIC</span></p>
