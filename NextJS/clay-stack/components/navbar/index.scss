@@ -1,0 +1,67 @@
+@import '/styles';
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // @include padding(4% 8% 0);
+  .main-logo {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    .logo {
+      &:hover {
+        -webkit-animation: spin 1s normal;
+        animation: spin 1s normal;
+      }
+    }
+
+    @-webkit-keyframes spin {
+      from {
+        -webkit-transform: rotateY(0deg);
+      }
+      to {
+        -webkit-transform: rotateY(-360deg);
+      }
+    }
+
+    @keyframes spin {
+      from {
+        -moz-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+      }
+
+      to {
+        -moz-transform: rotateY(-360deg);
+        -ms-transform: rotateY(-360deg);
+        transform: rotateY(-360deg);
+      }
+    }
+  }
+}
+
+.nav-item-container{
+  display: flex;
+  gap: 32px;
+  align-items: center;
+
+  li{
+    list-style-type: none
+  }
+  .get-started-btn{
+    background-color: $indigo;
+    border: none;
+    outline: none;
+    color: $white;
+    width: 156px;
+    height: 56px;
+    border-radius: 30px;
+    @include font-size(18px);
+    cursor: pointer;
+
+    &:hover{
+      background-color: $phlox;
+    }
+  }
+}

@@ -1,0 +1,140 @@
+/* https://www.figma.com/file/OurH2BHGnazMiiS69TqWcc/UI4---Design-System?node-id=2239%3A2282 */
+// @import './variables';
+
+$primaryText: #ffffff;
+// $headingFontFamily: var(--font-montserrat);;
+$fontFamily: var(--font-lato);
+
+.heading01 {
+  color: $primaryText;
+  text-align: left;
+  letter-spacing: unset;
+  margin: unset;
+  font-style: normal;
+  font-weight: $font-weight-extra-bold;
+  @include font-size($font-size-h1); // 140px
+  line-height: $line-height-sm;
+
+  // &.mobile {
+  //   font-weight: $font-weight-extra-bold;
+  //   @include font-size($font-size-lg-3); // 36px
+  //   // line-height: $font-size-lg-3 * $line-height-sm;
+  //   line-height: $line-height-sm;
+  // }
+}
+
+.heading02 {
+  color: $primaryText;
+  text-align: left;
+  letter-spacing: unset;
+  margin: unset;
+  font-style: normal;
+  font-weight: $font-weight-extra-bold;
+  @include font-size($font-size-h2); // 56px
+  line-height: $line-height-sm;
+
+  // &.mobile {
+  //   font-weight: $font-weight-extra-bold;
+  //   @include font-size($font-size-lg-3); //36px
+  //   line-height: $line-height-sm;
+  // }
+}
+
+.heading03 {
+  color: $primaryText;
+  text-align: left;
+  letter-spacing: unset;
+  margin: unset;
+  font-style: normal;
+  font-weight: $font-weight-regular;
+  @include font-size($font-size-h3); //36px
+  line-height: $line-height-sm;
+
+  // &.mobile {
+  //   font-weight: $font-weight-extra-bold;
+  //   @include font-size($font-size-xxlg); //22px
+  //   line-height: $line-height-sm;
+  // }
+}
+
+.heading04 {
+  color: $primaryText;
+  text-align: left;
+  letter-spacing: unset;
+  margin: unset;
+  font-style: normal;
+  font-weight: $font-weight-regular;
+  @include font-size($font-size-h4); //36px
+  line-height: $line-height-sm;
+
+  // &.mobile {
+  //   font-weight: $font-weight-extra-bold;
+  //   @include font-size($font-size-xxlg); //22px
+  //   line-height: $line-height-sm;
+  // }
+}
+
+
+.paragraph01 {
+  text-align: left;
+  letter-spacing: unset;
+  margin: unset;
+  font-style: normal;
+  // color: $text-color;
+  font-family: $fontFamily;
+  font-weight: $font-weight-regular; //400
+  @include font-size($font-size-lg); // 18px
+  // line-height: $font-size-lg * $line-height-sm;
+  line-height: $line-height-sm;
+
+  &.mobile {
+    @include font-size($font-size-xsm); //12px
+  }
+}
+
+.paragraph02 {
+  text-align: left;
+  letter-spacing: unset;
+  margin: unset;
+  font-style: normal;
+  font-family: $fontFamily;
+  font-weight: $font-weight-regular; //400
+  @include font-size($font-size-md); // 16px
+  // line-height: $font-size-md * $line-height-sm;
+  line-height: $line-height-sm;
+}
+
+.paragraph03 {
+  text-align: left;
+  letter-spacing: unset;
+  margin: unset;
+  font-style: normal;
+  font-family: $fontFamily;
+  font-weight: $font-weight-medium; //400
+  @include font-size($font-size-sm); // 14px
+  // line-height: $font-size-sm * $line-height-sm;
+  line-height: $line-height-sm;
+}
+
+.paragraph04 {
+  text-align: left;
+  letter-spacing: unset;
+  margin: unset;
+  font-style: normal;
+  font-family: $fontFamily;
+  font-weight: $font-weight-regular; //400
+  @include font-size($font-size-xlg); // 20px
+  // line-height: $font-size-xlg * $line-height-sm;
+  line-height: $line-height-sm;
+}
+
+.paragraph05 {
+  text-align: left;
+  letter-spacing: unset;
+  margin: unset;
+  font-style: normal;
+  font-family: $fontFamily;
+  font-weight: $font-weight-regular; //400
+  @include font-size($font-size-xsm); // 12px
+  line-height: $line-height-sm;
+}
