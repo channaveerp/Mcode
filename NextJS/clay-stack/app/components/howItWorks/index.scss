@@ -1,0 +1,80 @@
+@import '/styles';
+
+.how-it-works{
+    border-top: 0.1rem solid hsla(0,0%,100%,.08);
+    padding: 200px 5% 0; 
+    margin: auto;
+
+    .paragraph01{
+        font-size: 22px;
+        margin-top: 28px;
+    }
+
+    .work-steps{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 36px;
+        margin-top: 48px;
+        .card{
+            width: 700px;
+            height: 340px;
+            background-color: #1b1423;
+            border-radius: 24px;
+            padding: 60px 0 0 72px;
+            position: relative;
+
+            .circle{
+                position: absolute;
+                right: 40px;
+                top: 20px;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                padding: 10px;
+                background: transparent;
+                text-align: center;
+
+                &.one{
+                    border: 2px solid $phlox;
+                }
+
+                &.two{
+                    border: 2px solid $indigo;
+                }
+
+                &.three{
+                    border: 2px solid $blue;
+                }
+
+                &.four{
+                    border: 2px solid $turquoise;
+                }
+            }
+
+            .one{
+                color: $phlox;
+            }
+            .two{
+                color: $indigo;
+            }
+
+            .three{
+                color: $blue;
+            }
+
+            .four{
+                color: $turquoise;
+            }
+
+            .heading01{
+                font-size: 120px;
+            }
+
+            .paragraph02{
+                width: 500px;
+                color: #848585;
+            }
+
+        }
+    }
+}
