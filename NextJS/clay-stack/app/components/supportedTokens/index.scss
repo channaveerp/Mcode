@@ -1,0 +1,22 @@
+@import '/styles';
+
+.supported-tokens{
+    width: 90%;
+    margin: 200px auto 0;
+
+    .heading02{
+        margin-bottom: 48px;
+    }
+
+    .tokens{
+        display: flex;
+        gap: 32px;
+        .token-card{
+            width: 336px;
+            height: 400px;
+            border-radius: 24px;
+            background-color: #1b1423;
+           
+        }
+    }
+}
