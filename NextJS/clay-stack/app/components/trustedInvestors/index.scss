@@ -1,0 +1,65 @@
+@import '/styles';
+
+.trusted-investors{
+    width: 90%;
+    margin: 200px auto 0;
+    .heading02{
+        margin-bottom: 56px;
+        text-align: center;
+    }
+
+    .brands{
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 32px;
+        justify-content: center;
+
+        // div{
+        //     background-color: #140f1b;
+        //     border-radius: 24px;
+        //     width: 300px;
+        //     height: 116px;
+        //     display: flex;
+        //     flex-wrap: wrap;
+        // }
+        .brand-img{
+            border-radius: 24px;
+            width: 300px;
+            height: 116px;
+            background-color: #1b1423;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+    }
+
+    .investors{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 32px;
+        margin-top: 100px;
+
+        .investor-item{
+            width: 332px;
+            height: 118px;
+            display: flex;
+            align-items: center;
+            border-radius: 24px;
+            overflow: hidden;
+            background-color: #1b1423;
+
+
+            img{
+                width: 116px;
+                height: 116px;
+                background-color: $phlox;
+            }
+
+            .paragraph02{
+                padding: 8px 0 0 32px;
+                font-size: 20px;
+            }
+        }
+    }
+}
