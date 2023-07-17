@@ -1,4 +1,4 @@
-@import '/styles';
+@import "/styles";
 
 .navbar {
   display: flex;
@@ -41,15 +41,29 @@
   }
 }
 
-.nav-item-container{
+.nav-item-container {
   display: flex;
   gap: 32px;
   align-items: center;
 
-  li{
-    list-style-type: none
+  li {
+    list-style-type: none;
+
+    .nav-item {
+      overflow: hidden;
+      background: linear-gradient(to right, $phlox, $phlox 50%, $white 50%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% 100%;
+      background-position: 100%;
+      transition: background-position 500ms ease;
+      &:hover {
+        background-position: 0 100%;
+      }
+    }
   }
-  .get-started-btn{
+  .get-started-btn {
     background-color: $indigo;
     border: none;
     outline: none;
@@ -60,7 +74,7 @@
     @include font-size(18px);
     cursor: pointer;
 
-    &:hover{
+    &:hover {
       background-color: $phlox;
     }
   }

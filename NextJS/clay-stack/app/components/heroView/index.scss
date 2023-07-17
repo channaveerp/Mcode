@@ -1,93 +1,106 @@
-@import '/styles';
+@import "/styles";
 
-.hero-container{
-    // height: 900px;
+.hero-container {
+  // height: 900px;
+  position: relative;
+  .animation-container {
+    background: url("/img/glow2x.png");
+    background-size: 800px 800px;
+    // background-size: 100%;
+    height: 800px;
+    background-repeat: no-repeat;
+    background-position: top;
     position: relative;
-    .animation-container{
-        background: url('/img/glow2x.png');
-        background-size: 800px 800px;
-        // background-size: 100%;
-        height: 800px;
-        background-repeat: no-repeat;
-        background-position: top;
-        position: relative;
 
-        .heading01{
-            width: 100%;
-            position: absolute;
-            text-align: center;
-            top: 120px;
-        }
+    .heading01 {
+      width: 100%;
+      position: absolute;
+      text-align: center;
+      top: 120px;
+      color: $phlox;
+      //   animation: change 1s step-end normal;
     }
 
-    .frame-note{
-        // position: absolute;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 100px;
+    // @keyframes change {
+    //   0% {
+    //     color: $phlox;
+    //   }
+    //   100% {
+    //     color: $white;
+    //   }
+    // }
+  }
 
-        .note{
-            // background-color: red;
-            width: 232px;
-            height: fit-content;
-            padding: 24px;
-            line-height: 1.5;
-            border-radius: 4px;
-            // border: 2px solid $white;
-            background:
-            linear-gradient(to right, $white 2px, transparent 2px) 0 0,
-            linear-gradient(to left, $white 2px, transparent 2px) 100% 100%,
-            linear-gradient(to bottom, $white 2px, transparent 2px) 0 0,
-            linear-gradient(to top, $white 2px, transparent 2px) 100% 100%;
-    
-            background-repeat: no-repeat;
-            background-size: 20px 20px;
-        }
+  .frame-note {
+    // position: absolute;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 100px;
 
-        .eth-frame{
-            display: flex;
-            justify-content: space-between;
-            width: 492px;
-            height: 232px;
-            padding: 24px 28px;
-            background-image: linear-gradient(90deg,rgba(246,140,250,.2),rgba(241,77,247,.2));
-            border: 2px solid rgba(241,77,247,.2);
-            box-shadow: 0 8px 16px 0 rgba(235,1,243,.29);
-            overflow: hidden;
-            border-radius: 24px;
+    .note {
+      // background-color: red;
+      width: 232px;
+      height: fit-content;
+      padding: 24px;
+      line-height: 1.5;
+      border-radius: 4px;
+      // border: 2px solid $white;
+      background: linear-gradient(to right, $white 2px, transparent 2px) 0 0,
+        linear-gradient(to left, $white 2px, transparent 2px) 100% 100%,
+        linear-gradient(to bottom, $white 2px, transparent 2px) 0 0,
+        linear-gradient(to top, $white 2px, transparent 2px) 100% 100%;
 
-            div{
-                .heading04{
-                    width: 200px;
-                    color: $phlox;
-                    margin-bottom: 24px;
-                }
-
-                button{
-                    width: 148px;
-                    height: 52px;
-                    border-radius: 30px;
-                    padding: 0 24px;
-                    outline: none;
-                    border: none;
-                    background-color: rgba(247,241,255,.031372549);
-                    color: $white;
-                }
-            }
-        }
+      background-repeat: no-repeat;
+      background-size: 20px 20px;
     }
 
+    .eth-frame {
+      display: flex;
+      justify-content: space-between;
+      width: 492px;
+      height: 232px;
+      padding: 24px 28px;
+      background-image: linear-gradient(
+        90deg,
+        rgba(246, 140, 250, 0.2),
+        rgba(241, 77, 247, 0.2)
+      );
+      border: 2px solid rgba(241, 77, 247, 0.2);
+      box-shadow: 0 8px 16px 0 rgba(235, 1, 243, 0.29);
+      overflow: hidden;
+      border-radius: 24px;
 
-    .stats{
-        border-top: 0.1rem solid hsla(0,0%,100%,.08);
-        padding: 24px 0 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        .stats-name{
-            color: $phlox;
-            margin-right: 24px;
+      div {
+        .heading04 {
+          width: 200px;
+          color: $phlox;
+          margin-bottom: 24px;
         }
+
+        button {
+          width: 148px;
+          height: 52px;
+          border-radius: 30px;
+          padding: 0 24px;
+          outline: none;
+          border: none;
+          background-color: rgba(247, 241, 255, 0.031372549);
+          color: $white;
+        }
+      }
     }
+  }
+
+  .stats {
+    border-top: 0.1rem solid hsla(0, 0%, 100%, 0.08);
+    padding: 24px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .stats-name {
+      color: $phlox;
+      margin-right: 24px;
+    }
+  }
 }
