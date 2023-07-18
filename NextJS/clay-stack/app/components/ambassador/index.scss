@@ -1,58 +1,64 @@
-@import '/styles';
+@import "/styles";
 
-.ambassador{
-    width: 90%;
-    margin: 100px auto 0;
-    display: flex;
+.ambassador {
+  width: 90%;
+  margin: 100px auto 0;
+  display: flex;
 
-    background: url('/img/glow2x.png');
-    background-size: 800px 800px;
-    height: 800px;
-    background-repeat: no-repeat;
-    background-position: top -30px left 0px;
-    position: relative;
+  background: url("/img/glow2x.png");
+  background-size: 800px 800px;
+  height: 800px;
+  background-repeat: no-repeat;
+  background-position: top -30px left 0px;
+  position: relative;
 
-    .animation{
-        flex: 0.45;
+  .animation {
+    flex: 0.45;
+
+    video {
+      position: absolute;
+      top: -180px;
+      left: -200px;
+    }
+  }
+
+  .details {
+    flex: 0.55;
+    .paragraph01 {
+      width: 630px;
+      font-size: 20px;
+      line-height: 1.5;
     }
 
-    .details{
-        flex: 0.55;
-        .paragraph01{
-            width: 630px;
-            font-size: 20px;
-            line-height: 1.5;
-        }
-
-        button{
-            width: 148px;
-            height: 52px;
-            border-radius: 30px;
-            padding: 0 24px;
-            outline: none;
-            border: none;
-            background-color: $indigo;
-            color: $white;
-            margin-top: 28px;
-            cursor: pointer;
-        }
+    button {
+      width: 148px;
+      height: 52px;
+      border-radius: 30px;
+      padding: 0 24px;
+      outline: none;
+      border: none;
+      background-color: $indigo;
+      color: $white;
+      margin-top: 28px;
+      cursor: pointer;
     }
+  }
 }
 
-    .stats{
-        border-top: 0.1rem solid hsla(0,0%,100%,.08);
-        // padding-top: 36px;
-        padding: 36px 0 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+.stats {
+  border-top: 0.1rem solid hsla(0, 0%, 100%, 0.08);
+  // padding-top: 36px;
+  padding: 36px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-        .paragraph01{
-            font-size: 24px;
-        }
+  .paragraph01 {
+    font-size: 24px;
+  }
 
-        .stats-name{
-            color: $phlox;
-            margin-right: 24px;
-        }
-    }
+  .stats-name {
+    color: $phlox;
+    margin-right: 24px;
+  }
+}

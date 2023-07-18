@@ -7,7 +7,7 @@ export default function Heroview() {
   return (
     <motion.main
       className="hero-container"
-      transition={{ type: "tween" }}
+      // transition={{ type: "tween" }}
       //   animate={{ y: -10 }}
       //   transition={{ ease: "easeOut", duration: 2 }}
       //   initial={false}
@@ -15,19 +15,28 @@ export default function Heroview() {
       {/* <div className='animation-bg'></div> */}
       <div className="animation-container">
         <motion.h1
-          animate={{ y: 5, color: "#ffffff" }}
-          initial={{}}
+          animate={{ y: -20, color: "#ffffff" }}
+          initial={{ y: 0 }}
           transition={{
             ease: "easeOut",
             duration: 2,
-            delay: 0.5,
-            type: "tween",
+            // delay: 0.5,
+            type: "spring",
           }}
           className="heading01"
         >
           Staking Redefined
         </motion.h1>
-        <div className="animation-cube"></div>
+        <div className="animation-cube">
+          <video
+            muted
+            autoPlay
+            loop
+            controlsList="nodownload noplaybackrate"
+            disablePictureInPicture
+            src="video/logo.webm"
+          ></video>
+        </div>
       </div>
       <div className="frame-note">
         <div className="note paragraph01">

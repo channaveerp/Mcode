@@ -1,50 +1,49 @@
-@import '/styles';
+@import "/styles";
 
+.validator-container {
+  display: flex;
+  width: 90%;
+  margin: 200px auto;
+  background: url("/img/glow2x.png");
+  background-size: 800px 800px;
+  height: 800px;
+  background-repeat: no-repeat;
+  background-position: right -40px top -40px;
 
-.validator-container{
-    display: flex;
-    width: 90%;
-    margin: 200px auto;
-    background: url('/img/glow2x.png');
-    background-size: 800px 800px;
-    height: 800px;
-    background-repeat: no-repeat;
-    background-position: right 100px top -40px;
-
-    .details{
-
-        .note{
-            width: 280px;
-            height: fit-content;
-            padding: 24px;
-            line-height: 1.5;
-            border-radius: 4px;
-            background:
-            linear-gradient(to right, $white 2px, transparent 2px) 0 0,
-            linear-gradient(to left, $white 2px, transparent 2px) 100% 100%,
-            linear-gradient(to bottom, $white 2px, transparent 2px) 0 0,
-            linear-gradient(to top, $white 2px, transparent 2px) 100% 100%;
-            background-repeat: no-repeat;
-            background-size: 20px 20px;
-        }
-
-        button{
-            width: 148px;
-            height: 52px;
-            border-radius: 30px;
-            padding: 0 24px;
-            outline: none;
-            border: none;
-            background-color: $indigo;
-            color: $white;
-            margin-top: 48px;
-            font-size: 16px;
-        }
+  .details {
+    .note {
+      width: 400px;
+      height: fit-content;
+      padding: 24px;
+      line-height: 1.5;
+      border-radius: 4px;
+      background: linear-gradient(to right, $white 2px, transparent 2px) 0 0,
+        linear-gradient(to left, $white 2px, transparent 2px) 100% 100%,
+        linear-gradient(to bottom, $white 2px, transparent 2px) 0 0,
+        linear-gradient(to top, $white 2px, transparent 2px) 100% 100%;
+      background-repeat: no-repeat;
+      background-size: 20px 20px;
+      font-size: 24px;
+      line-height: 1.5;
     }
 
-    // .val-img{
-    //     img{
+    button {
+      width: 148px;
+      height: 52px;
+      border-radius: 30px;
+      padding: 0 24px;
+      outline: none;
+      border: none;
+      background-color: $indigo;
+      color: $white;
+      margin-top: 48px;
+      font-size: 16px;
+    }
+  }
 
-    //     }
-    // }
+  // .val-img{
+  //     img{
+
+  //     }
+  // }
 }

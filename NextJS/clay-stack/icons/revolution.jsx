@@ -1,12 +1,16 @@
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { TargetAndTransition, VariantLabels, motion } from "framer-motion";
 
 export default function Revolution() {
+  const [isInView, setIsInView] = useState(false);
+
   return (
     <motion.svg
-      whileInView="visible"
-      viewport={{ once: true }}
+      whileInView={() => {
+        setIsInView(true);
+        return null;
+      }}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 1018.89 761.4"
@@ -325,11 +329,14 @@ export default function Revolution() {
       <g>
         {/*  */}
         <motion.g
+          // initial={{ x: -200 }}
+          // whileInView={{ x: 0 }}
+          // // viewport={{ once: true }}
+          // // animate={{ x: 0 }}
+          // transition={{ duration: 1, delay: 0 }}
           initial={{ x: -200 }}
-          whileInView="visible"
-          viewport={{ once: true }}
-          animate={{ x: 0 }}
-          transition={{ duration: 2 }}
+          animate={isInView && { x: 0 }}
+          transition={{ delay: 1, duration: 2 }}
           opacity=".8"
           className="coins__right coins__right--3"
         >
@@ -354,10 +361,8 @@ export default function Revolution() {
         {/*  */}
         <motion.g
           initial={{ x: -120 }}
-          whileInView="visible"
-          viewport={{ once: true }}
-          animate={{ x: 0 }}
-          transition={{ duration: 2 }}
+          animate={isInView && { x: 0 }}
+          transition={{ delay: 1, duration: 2 }}
           opacity=".9"
           className="coins__right coins__right--2"
         >
@@ -385,10 +390,8 @@ export default function Revolution() {
         {/*  */}
         <motion.g
           initial={{ x: -50 }}
-          whileInView="visible"
-          viewport={{ once: true }}
-          animate={{ x: 0 }}
-          transition={{ duration: 2 }}
+          animate={isInView && { x: 0 }}
+          transition={{ delay: 1, duration: 2 }}
           className="coins__right coins__right--1"
         >
           <path
@@ -434,10 +437,8 @@ export default function Revolution() {
         {/*  */}
         <motion.g
           initial={{ x: 50 }}
-          whileInView="visible"
-          viewport={{ once: true }}
-          animate={{ x: 0 }}
-          transition={{ duration: 2 }}
+          animate={isInView && { x: 0 }}
+          transition={{ delay: 1, duration: 2 }}
           className="coins__left coins__left--2"
         >
           <path
@@ -464,10 +465,8 @@ export default function Revolution() {
         {/*  */}
         <motion.g
           initial={{ x: 120 }}
-          whileInView="visible"
-          viewport={{ once: true }}
-          animate={{ x: 0 }}
-          transition={{ duration: 2 }}
+          animate={isInView && { x: 0 }}
+          transition={{ delay: 1, duration: 2 }}
           className="coins__left coins__left--1"
         >
           <path

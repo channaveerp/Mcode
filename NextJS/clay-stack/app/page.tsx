@@ -7,21 +7,25 @@ import LiquidityCarousel from "./components/liquidityCarousel";
 import Press from "./components/press";
 import StakeRevolution from "./components/stakeRevolution";
 import StakingExperts from "./components/stakingExperts";
+import StartStaking from "./components/startStaking";
 import SupportedTokens from "./components/supportedTokens";
 import TrustedInvestors from "./components/trustedInvestors";
 
 export default function Home() {
-  return <main>
-    <Heroview />
-    <StakeRevolution />
-    <Features />
-    <BecomeValidator />
-    <HowItWorks />
-    <SupportedTokens />
-    <StakingExperts />
-    <Ambassador />
-    <LiquidityCarousel />
-    <TrustedInvestors />
-    <Press />
-  </main>;
+  return (
+    <main>
+      <Heroview />
+      <StakeRevolution />
+      <Features />
+      <BecomeValidator />
+      <HowItWorks />
+      <SupportedTokens />
+      <StakingExperts />
+      <Ambassador />
+      <LiquidityCarousel />
+      <TrustedInvestors />
+      <Press />
+      <StartStaking />
+    </main>
+  );
 }

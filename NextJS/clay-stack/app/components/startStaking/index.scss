@@ -1,0 +1,70 @@
+@import "/styles";
+
+.start-staking {
+  width: 90%;
+  margin: 100px auto 60px;
+
+  background: url("/img/glow2x.png");
+  background-size: 900px 900px;
+  height: 900px;
+  background-repeat: no-repeat;
+  background-position: top -30px left 40px;
+  position: relative;
+
+  .heading01 {
+    font-size: 172px;
+    text-align: center;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    height: 600px;
+
+    video {
+      flex: 0.7;
+      //   position: absolute;
+      top: 0;
+      left: 50;
+      //   width: 600px;
+      //   height: 600px;
+    }
+
+    .details {
+      flex: 0.3;
+
+      .paragraph01 {
+        width: 358px;
+        padding: 36px 28px;
+        font-size: 24px;
+        line-height: 1.5;
+        font-weight: 400;
+        border-radius: 4px;
+        background: linear-gradient(to right, $white 2px, transparent 2px) 0 0,
+          linear-gradient(to left, $white 2px, transparent 2px) 100% 100%,
+          linear-gradient(to bottom, $white 2px, transparent 2px) 0 0,
+          linear-gradient(to top, $white 2px, transparent 2px) 100% 100%;
+        background-repeat: no-repeat;
+        background-size: 20px 20px;
+      }
+
+      button {
+        width: 172px;
+        height: 64px;
+        border-radius: 30px;
+        padding: 0 24px;
+        outline: none;
+        border: none;
+        background-color: $indigo;
+        color: $white;
+        margin-top: 48px;
+        font-size: 20px;
+
+        &:hover {
+          cursor: pointer;
+          background-color: $phlox;
+        }
+      }
+    }
+  }
+}

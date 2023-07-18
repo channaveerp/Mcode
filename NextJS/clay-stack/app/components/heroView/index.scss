@@ -16,7 +16,7 @@
       width: 100%;
       position: absolute;
       text-align: center;
-      top: 120px;
+      top: 60px;
       color: $phlox;
       //   animation: change 1s step-end normal;
     }
@@ -29,6 +29,14 @@
     //     color: $white;
     //   }
     // }
+
+    .animation-cube {
+      video {
+        position: absolute;
+        // top: -180px;
+        left: 20%;
+      }
+    }
   }
 
   .frame-note {
