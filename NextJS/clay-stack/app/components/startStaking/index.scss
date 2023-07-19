@@ -1,7 +1,9 @@
 @import "/styles";
 
 .start-staking {
-  width: 90%;
+  width: 100vw;
+  max-width: 1980px;
+  padding: 0 12%;
   margin: 100px auto 60px;
 
   background: url("/img/glow2x.png");
@@ -11,8 +13,28 @@
   background-position: top -30px left 40px;
   position: relative;
 
+  @include lessThan(xxl) {
+    padding: 0 8%;
+  }
+
+  @include lessThan(xl) {
+    background-size: 700px 700px;
+    height: 700px;
+  }
+
+  @include lessThan(lg) {
+    background-size: 700px 700px;
+    background-position: top -30px left 10px;
+    height: fit-content;
+  }
+
+  @include lessThan(md) {
+    background-size: 100% 68%;
+    background-position: top -30px left 10px;
+    height: fit-content;
+  }
+
   .heading01 {
-    font-size: 172px;
     text-align: center;
   }
 
@@ -21,18 +43,33 @@
     align-items: center;
     height: 600px;
 
-    video {
+    @include lessThan(lg) {
+      flex-direction: column;
+      height: fit-content;
+    }
+
+    .video-container {
       flex: 0.7;
-      //   position: absolute;
-      top: 0;
-      left: 50;
-      //   width: 600px;
-      //   height: 600px;
+      video {
+        width: 840px;
+      }
+      @include lessThan(xxl) {
+        margin-left: -50px;
+        video {
+          width: 680px;
+        }
+      }
+      @include lessThan(xl) {
+        margin-left: -88px;
+        video {
+          width: 600px;
+        }
+      }
     }
 
     .details {
+      height: 300px;
       flex: 0.3;
-
       .paragraph01 {
         width: 358px;
         padding: 36px 28px;
@@ -46,6 +83,10 @@
           linear-gradient(to top, $white 2px, transparent 2px) 100% 100%;
         background-repeat: no-repeat;
         background-size: 20px 20px;
+
+        @include lessThan(md) {
+          @include font-size(18px);
+        }
       }
 
       button {

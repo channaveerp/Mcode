@@ -1,0 +1,37 @@
+import React from "react";
+
+export default function More({ width = 15, height = 13 }) {
+  return (
+    <svg
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 15 13"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke-width="1.5"
+      fill="none"
+      fill-rule="evenodd"
+      stroke-linecap="square"
+      className="nav-toggle__svg nav-toggle__burger"
+      width={width}
+      height={height}
+    >
+      <path
+        d="M1.163 1.084h12.675"
+        stroke="#FFFFFF"
+        fill="none"
+        stroke-width="1.5px"
+      ></path>
+      <path
+        d="M1.163 6.5h12.675"
+        stroke="#FFFFFF"
+        fill="none"
+        stroke-width="1.5px"
+      ></path>
+      <path
+        d="M1.163 11.917h12.675"
+        stroke="#FFFFFF"
+        fill="none"
+        stroke-width="1.5px"
+      ></path>
+    </svg>
+  );
+}

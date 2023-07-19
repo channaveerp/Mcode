@@ -59,14 +59,14 @@ export default function StakeRevolution() {
       <div className="stake-img">
         <Revolution />
         <motion.span
-          whileInView={{
-            width: 275,
-            height: 275,
-            background:
-              "radial-gradient( circle, rgba(74, 245, 234, 0.6) 0, rgba(74, 245, 234, 0) 70%)",
-          }}
-          viewport={{ once: true }}
-          transition={{ delay: 1, duration: 2 }}
+        // whileInView={{
+        //   width: 275,
+        //   height: 275,
+        //   background:
+        //     "radial-gradient( circle, rgba(74, 245, 234, 0.6) 0, rgba(74, 245, 234, 0) 70%)",
+        // }}
+        // viewport={{ once: true }}
+        // transition={{ delay: 1, duration: 2 }}
         ></motion.span>
       </div>
     </main>

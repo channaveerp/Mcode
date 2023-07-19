@@ -1,25 +1,57 @@
 @import "/styles";
 
 .stake-revolution {
-  width: 90%;
+  width: 100vw;
+  max-width: 1980px;
+  padding: 0 12%;
   margin: 200px auto 0;
   display: flex;
   justify-content: space-between;
+
+  @include lessThan(xxl) {
+    padding: 0 8%;
+  }
+
+  @include lessThan(lg) {
+    margin-top: 100px;
+    flex-direction: column-reverse;
+  }
 
   .stake-content {
     flex: 0.55;
 
     .paragraph01 {
       margin-top: 24px;
-      font-size: 20px;
+      @include font-size($font-size-xlg);
       width: 536px;
       line-height: 1.5;
+    }
+
+    @include lessThan(xxl) {
+      flex: 0.5;
+      .paragraph01 {
+        width: 420px;
+      }
+    }
+
+    @include lessThan(xl) {
+      .paragraph01 {
+        width: 360px;
+      }
+    }
+
+    @include lessThan(md) {
+      .paragraph01 {
+        width: 100%;
+      }
     }
   }
 
   .stake-img {
     flex: 0.45;
     position: relative;
+    margin: auto;
+
     svg {
       width: 612px;
       height: 464px;
@@ -33,33 +65,84 @@
       left: 25%;
       top: 5%;
 
-      // background: radial-gradient(
-      //   circle,
-      //   rgba(74, 245, 234, 0.6) 0,
-      //   rgba(74, 245, 234, 0) 70%
-      // );
-      // transition-delay: 1s;
-      // transition-property: background-color;
-      // transition: opacity 2s cubic-bezier(0.22, 1, 0.36, 1) 1s;
-      // animation: change 1s step-end normal;
+      background: radial-gradient(
+        circle,
+        rgba(74, 245, 234, 0.6) 0,
+        rgba(74, 245, 234, 0) 70%
+      );
+      transition-delay: 1s;
+      transition-property: background-color;
+      transition: opacity 2s cubic-bezier(0.22, 1, 0.36, 1) 1s;
+      animation: change 1s step-end normal;
 
-      // @keyframes change {
-      //   0% {
-      //     background: none;
-      //   }
-      //   100% {
-      //     background: radial-gradient(
-      //       circle,
-      //       rgba(74, 245, 234, 0.6) 0,
-      //       rgba(74, 245, 234, 0) 70%
-      //     );
-      //   }
-      // }
-      // &::before {
-      //   animation: change;
-      //   animation-delay: 2s;
-      //   animation-timing-function: ease-out;
-      // }
+      @keyframes change {
+        0% {
+          background: none;
+        }
+        100% {
+          background: radial-gradient(
+            circle,
+            rgba(74, 245, 234, 0.6) 0,
+            rgba(74, 245, 234, 0) 70%
+          );
+        }
+      }
+      &::before {
+        animation: change;
+        animation-delay: 2s;
+        animation-timing-function: ease-out;
+      }
+    }
+
+    @include lessThan(xxl) {
+      flex: 0.5;
+      svg {
+        margin-top: -48px;
+        width: 484px;
+        height: 360px;
+      }
+
+      span {
+        width: 192px;
+        height: 192px;
+        position: absolute;
+        left: 28%;
+        top: 20%;
+      }
+    }
+
+    @include lessThan(xl) {
+      // flex: 0.55;
+
+      svg {
+        margin-top: -24px;
+        width: 416px;
+        height: 312px;
+      }
+
+      span {
+        width: 164px;
+        height: 164px;
+        position: absolute;
+        left: 28%;
+        top: 25%;
+      }
+    }
+
+    @include lessThan(md) {
+      svg {
+        margin-top: -24px;
+        width: 100%;
+        aspect-ratio: 4/3;
+      }
+
+      span {
+        width: 128px;
+        height: 128px;
+        position: absolute;
+        left: 28%;
+        top: 32%;
+      }
     }
   }
 }

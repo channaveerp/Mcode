@@ -1,16 +1,45 @@
 @import "/styles";
 
 .validator-container {
+  width: 100vw;
+  max-width: 1980px;
+  padding: 0 12%;
+  margin: 200px auto 0;
   display: flex;
-  width: 90%;
-  margin: 200px auto;
   background: url("/img/glow2x.png");
   background-size: 800px 800px;
   height: 800px;
   background-repeat: no-repeat;
   background-position: right -40px top -40px;
 
+  @include lessThan(xxl) {
+    padding: 0 8%;
+  }
+
+  @include lessThan(lg) {
+    flex-direction: column;
+    background: none;
+    height: fit-content;
+    margin-top: 100px;
+  }
+
   .details {
+    .heading01 {
+      @include font-size(136px);
+
+      @include lessThan(xxl) {
+        width: 562px;
+        @include font-size(120px);
+      }
+
+      @include lessThan(xl) {
+        width: 562px;
+      }
+
+      @include lessThan(md) {
+        width: fit-content;
+      }
+    }
     .note {
       width: 400px;
       height: fit-content;
@@ -25,6 +54,12 @@
       background-size: 20px 20px;
       font-size: 24px;
       line-height: 1.5;
+
+      @include lessThan(md) {
+        width: fit-content;
+        margin-top: 16px;
+        @include font-size(18px);
+      }
     }
 
     button {
@@ -41,9 +76,33 @@
     }
   }
 
-  // .val-img{
-  //     img{
+  .val-img {
+    display: flex;
+    justify-content: center;
+    img {
+      width: 572px;
+      aspect-ratio: 4/5;
 
-  //     }
-  // }
+      @include lessThan(xl) {
+        width: 400px;
+      }
+
+      @include lessThan(lg) {
+        width: 324px;
+      }
+    }
+
+    @include lessThan(lg) {
+      background: url("/img/glow2x.png");
+      background-size: 500px 500px;
+      height: 500px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    @include lessThan(md) {
+      background-size: 400px 400px;
+      height: 400px;
+    }
+  }
 }

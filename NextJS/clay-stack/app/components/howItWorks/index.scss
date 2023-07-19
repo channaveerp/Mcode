@@ -2,11 +2,23 @@
 
 .how-it-works {
   border-top: 0.1rem solid hsla(0, 0%, 100%, 0.08);
-  padding: 200px 5% 0;
+  width: 100vw;
+  max-width: 1980px;
+  padding: 200px 12% 0;
+  margin: 200px auto 0;
   margin: auto;
 
+  @include lessThan(xxl) {
+    padding: 200px 8% 0;
+  }
+
+  @include lessThan(lg) {
+    padding: 100px 8% 0;
+    margin-top: 100px;
+  }
+
   .paragraph01 {
-    font-size: 22px;
+    @include font-size(22px);
     margin-top: 28px;
   }
 
@@ -15,12 +27,20 @@
     flex-wrap: wrap;
     gap: 36px;
     margin-top: 48px;
+
+    @include lessThan(xl) {
+      gap: 24px;
+    }
+
+    @include lessThan(md) {
+      flex-direction: column;
+    }
     .card {
-      width: 700px;
-      height: 340px;
+      width: 48%;
+      height: 300px;
       background-color: #1b1423;
       border-radius: 24px;
-      padding: 60px 0 0 72px;
+      @include padding(60px 0 0 52px);
       position: relative;
 
       .circle {
@@ -67,12 +87,35 @@
       }
 
       .heading01 {
-        font-size: 120px;
+        @include font-size(108px);
       }
 
       .paragraph02 {
-        width: 500px;
+        width: fit-content;
+        margin-right: 20%;
         color: #848585;
+      }
+
+      @include lessThan(xxl) {
+        height: 276px;
+        .heading01 {
+          @include font-size(84px);
+        }
+      }
+
+      @include lessThan(xl) {
+        height: fit-content;
+        @include padding(48px 0 36px 24px);
+        .heading01 {
+          @include font-size(72px);
+        }
+        .paragraph02 {
+          margin-right: 12%;
+        }
+      }
+
+      @include lessThan(md) {
+        width: 100%;
       }
     }
   }

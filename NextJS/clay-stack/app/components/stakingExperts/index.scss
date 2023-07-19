@@ -1,40 +1,54 @@
-@import '/styles';
+@import "/styles";
 
-.staking-expert{
-    width: 90%;
-    margin: 100px auto 0;
+.staking-expert {
+  width: 100vw;
+  max-width: 1980px;
+  padding: 0 12%;
+  margin: 100px auto 0;
 
-    .heading02{
-        margin-bottom: 48px;
-    }
+  @include lessThan(xxl) {
+    padding: 0 8%;
+  }
 
-    .stake-items{
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
-        grid-column-gap: 80px;
-        grid-row-gap: 32px;
+  .heading02 {
+    margin-bottom: 48px;
+  }
 
-        .stake-card{
+  .stake-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 80px;
+    grid-row-gap: 32px;
 
-            div{
-                display: flex;
-                justify-content: space-between;
+    .stake-card {
+      div {
+        display: flex;
+        justify-content: space-between;
 
-                img{
-                    max-width: 40px;
-                    max-height: 40px;
-                }
-            }
-
-            .heading04{
-                color: $phlox;
-                margin-bottom: 24px;
-            }
-
-            .paragraph02{
-                color: #848585;
-                line-height: 1.5;
-            }
+        img {
+          max-width: 40px;
+          max-height: 40px;
         }
+      }
+
+      .heading04 {
+        color: $phlox;
+        margin-bottom: 24px;
+      }
+
+      .paragraph02 {
+        width: 70%;
+        color: #848585;
+        line-height: 1.5;
+      }
     }
+
+    @include lessThan(lg) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include lessThan(md) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
 }

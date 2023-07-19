@@ -1,10 +1,10 @@
 "use client";
-import React, { ReactNode } from "react";
+import React from "react";
 import Marquee from "react-fast-marquee";
 import "./index.scss";
 
 export default function Press() {
-  const arr = new Array(6).fill(1);
+  const arr = new Array(4).fill(1);
 
   return (
     <main className="press-container">

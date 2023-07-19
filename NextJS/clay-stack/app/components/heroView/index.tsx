@@ -5,14 +5,7 @@ import { motion } from "framer-motion";
 
 export default function Heroview() {
   return (
-    <motion.main
-      className="hero-container"
-      // transition={{ type: "tween" }}
-      //   animate={{ y: -10 }}
-      //   transition={{ ease: "easeOut", duration: 2 }}
-      //   initial={false}
-    >
-      {/* <div className='animation-bg'></div> */}
+    <motion.main className="hero-container">
       <div className="animation-container">
         <motion.h1
           animate={{ y: -20, color: "#ffffff" }}
@@ -20,7 +13,6 @@ export default function Heroview() {
           transition={{
             ease: "easeOut",
             duration: 2,
-            // delay: 0.5,
             type: "spring",
           }}
           className="heading01"
@@ -49,7 +41,7 @@ export default function Heroview() {
             </h4>
             <button>Learn More</button>
           </div>
-          {/* <div></div> */}
+          <div></div>
           <div>X</div>
         </div>
       </div>

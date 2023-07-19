@@ -44,14 +44,16 @@ export default function StartStaking() {
       </motion.h1>
 
       <div className="content">
-        <video
-          muted
-          autoPlay
-          loop
-          controlsList="nodownload noplaybackrate"
-          disablePictureInPicture
-          src="video/logo.webm"
-        ></video>
+        <div className="video-container">
+          <video
+            muted
+            autoPlay
+            loop
+            controlsList="nodownload noplaybackrate"
+            disablePictureInPicture
+            src="video/logo.webm"
+          ></video>
+        </div>
         <div className="details">
           <motion.p
             variants={text}

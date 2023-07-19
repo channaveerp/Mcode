@@ -55,7 +55,12 @@ export default function SupportedTokens() {
         viewport={{ once: true }}
         className="tokens"
       >
-        <motion.div variants={item} className="token-card"></motion.div>
+        <motion.div variants={item} className="token-card">
+          {/* <div>
+            <img width="16px" height="16px" src="img/polygon.svg" alt="" />
+            <p className="paragraph02">Polygon</p>
+          </div> */}
+        </motion.div>
         <motion.div variants={item} className="token-card"></motion.div>
         <motion.div variants={item} className="token-card"></motion.div>
         <motion.div variants={item} className="token-card"></motion.div>
