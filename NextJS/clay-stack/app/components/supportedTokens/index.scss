@@ -24,9 +24,85 @@
     gap: 32px;
     .token-card {
       width: 100%;
-      height: 400px;
+      height: 396px;
+      padding: 8%;
       border-radius: 24px;
       background-color: #1b1423;
+
+      .token-name {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        @include padding(0 0 16px);
+        border-bottom: 0.1rem solid hsla(0, 0%, 100%, 0.08);
+
+        img {
+          width: 32px;
+          height: 32px;
+        }
+
+        .paragraph02 {
+          @include font-size(20px);
+        }
+      }
+
+      .token-apy {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        @include padding(28px 0 16px);
+        border-bottom: 0.1rem solid hsla(0, 0%, 100%, 0.08);
+      }
+
+      .token-tvl {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        @include padding(24px 0 16px);
+        border-bottom: 0.1rem solid hsla(0, 0%, 100%, 0.08);
+
+        .tvl-data {
+          width: fit-content;
+          color: $white;
+        }
+      }
+
+      .paragraph01 {
+        color: $phlox;
+        width: 60px;
+      }
+
+      .token-network {
+        @include padding(24px 0 0);
+
+        .paragraph05 {
+          color: #ffffff40;
+          text-align: center;
+        }
+
+        .token-btns {
+          height: 56px;
+          display: flex;
+          gap: 5%;
+          @include margin-top(16px);
+          .token-btn {
+            width: 156px;
+            height: 56px;
+            color: $white;
+            font-size: 18px;
+            background-color: $indigo;
+            border-radius: 30px;
+            outline: none;
+            border: 2px solid $indigo;
+          }
+
+          .btn-2 {
+            background-color: $phlox;
+          }
+        }
+      }
     }
 
     @include lessThan(xl) {

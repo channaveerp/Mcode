@@ -56,14 +56,89 @@ export default function SupportedTokens() {
         className="tokens"
       >
         <motion.div variants={item} className="token-card">
-          {/* <div>
+          <div className="token-name">
             <img width="16px" height="16px" src="img/polygon.svg" alt="" />
             <p className="paragraph02">Polygon</p>
-          </div> */}
+          </div>
+          <div className="token-apy">
+            <p className="paragraph01">APY</p>
+            <h3 className="heading03">4.33%</h3>
+          </div>
+          <div className="token-tvl">
+            <p className="paragraph01">TVL</p>
+            <p className="paragraph01 tvl-data">3,428,795 MATIC</p>
+          </div>
+          <div className="token-network">
+            <p className="paragraph05">SELECT NETWORK </p>
+            <div className="token-btns">
+              <button className="token-btn">Ethereum</button>
+              <button className="token-btn btn-2">Polygon</button>
+            </div>
+          </div>
         </motion.div>
-        <motion.div variants={item} className="token-card"></motion.div>
-        <motion.div variants={item} className="token-card"></motion.div>
-        <motion.div variants={item} className="token-card"></motion.div>
+        <motion.div variants={item} className="token-card">
+          <div className="token-name">
+            <img width="16px" height="16px" src="img/polygon.svg" alt="" />
+            <p className="paragraph02">Polygon</p>
+          </div>
+          <div className="token-apy">
+            <p className="paragraph01">APY</p>
+            <h3 className="heading03">4.33%</h3>
+          </div>
+          <div className="token-tvl">
+            <p className="paragraph01">TVL</p>
+            <p className="paragraph01 tvl-data">3,428,795 MATIC</p>
+          </div>
+          <div className="token-network">
+            <p className="paragraph05">SELECT NETWORK </p>
+            <div className="token-btns">
+              <button className="token-btn">Ethereum</button>
+              <button className="token-btn btn-2">Polygon</button>
+            </div>
+          </div>
+        </motion.div>
+        <motion.div variants={item} className="token-card">
+          <div className="token-name">
+            <img width="16px" height="16px" src="img/polygon.svg" alt="" />
+            <p className="paragraph02">Polygon</p>
+          </div>
+          <div className="token-apy">
+            <p className="paragraph01">APY</p>
+            <h3 className="heading03">4.33%</h3>
+          </div>
+          <div className="token-tvl">
+            <p className="paragraph01">TVL</p>
+            <p className="paragraph01 tvl-data">3,428,795 MATIC</p>
+          </div>
+          <div className="token-network">
+            <p className="paragraph05">SELECT NETWORK </p>
+            <div className="token-btns">
+              <button className="token-btn">Ethereum</button>
+              <button className="token-btn btn-2">Polygon</button>
+            </div>
+          </div>
+        </motion.div>
+        <motion.div variants={item} className="token-card">
+          <div className="token-name">
+            <img width="16px" height="16px" src="img/polygon.svg" alt="" />
+            <p className="paragraph02">Polygon</p>
+          </div>
+          <div className="token-apy">
+            <p className="paragraph01">APY</p>
+            <h3 className="heading03">4.33%</h3>
+          </div>
+          <div className="token-tvl">
+            <p className="paragraph01">TVL</p>
+            <p className="paragraph01 tvl-data">3,428,795 MATIC</p>
+          </div>
+          <div className="token-network">
+            <p className="paragraph05">SELECT NETWORK </p>
+            <div className="token-btns">
+              <button className="token-btn">Ethereum</button>
+              <button className="token-btn btn-2">Polygon</button>
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
     </main>
   );

@@ -9,8 +9,8 @@ const container = {
     opacity: 1,
     scale: 1,
     transition: {
-      delayChildren: 0.1,
-      staggerChildren: 0.1,
+      delayChildren: 0.05,
+      staggerChildren: 0.05,
     },
   },
 };
@@ -83,7 +83,6 @@ export default function TrustedInvestors() {
         className="investors"
       >
         {investorsArr.map((el: any, index: number) => (
-          // <img key={index} src="img/coinfund.png" alt="" />
           <motion.div
             whileHover={{
               boxShadow: " 0 0 2rem rgba(235,1,243,.5)",

@@ -94,7 +94,8 @@ body {
   color: rgb(var(--foreground-rgb));
   background-color: #140f1b;
   color: #ffffff;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--HelveticaNeue);
+  /* font-family: Arial, Helvetica, sans-serif; */
   /* padding: 4% 8% 0; */
   /* @include padding(4% 8% 0); */
 }
