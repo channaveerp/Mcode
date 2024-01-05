@@ -26,3 +26,5 @@ Hash Function :  are known as "one-way" functions that have
   # Private key -> Hash fn -> Public key -> Hash fn -> address
 
   // save the seed phrases to recover private key (12 or 24 wprd in sequence) // look in BIP39
+
+  wallet is just my ownership and balannce is available on block chain.
