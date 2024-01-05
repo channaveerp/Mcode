@@ -1,94 +1,144 @@
-@import '/styles';
+@import "/styles";
 
-.hero-container{
-    // height: 900px;
+.hero-container {
+  width: 100vw;
+  max-width: 1980px;
+  padding: 4% 8% 0;
+  margin: auto;
+  position: relative;
+
+  .animation-container {
+    background: url("/img/glow2x.png");
+    background-size: 800px 800px;
+    height: 800px;
+    background-repeat: no-repeat;
+    background-position: top 0 center;
     position: relative;
-    .animation-container{
-        background: url('/img/glow2x.png');
-        background-size: 800px 800px;
-        // background-size: 100%;
-        height: 800px;
-        background-repeat: no-repeat;
-        background-position: top;
-        position: relative;
 
-        .heading01{
-            width: 100%;
-            position: absolute;
-            text-align: center;
-            top: 120px;
-            transition-delay: 1.06s;
-        }
+    @include lessThan(lg) {
+      background-size: 700px 700px;
+      height: 700px;
+    }
+    @include lessThan(md) {
+      background-size: 360px 360px;
+      height: 360px;
     }
 
-    .frame-note{
-        // position: absolute;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 100px;
-
-        .note{
-            // background-color: red;
-            width: 232px;
-            height: fit-content;
-            padding: 24px;
-            line-height: 1.5;
-            border-radius: 4px;
-            // border: 2px solid $white;
-            background:
-            linear-gradient(to right, $white 2px, transparent 2px) 0 0,
-            linear-gradient(to left, $white 2px, transparent 2px) 100% 100%,
-            linear-gradient(to bottom, $white 2px, transparent 2px) 0 0,
-            linear-gradient(to top, $white 2px, transparent 2px) 100% 100%;
-    
-            background-repeat: no-repeat;
-            background-size: 20px 20px;
-        }
-
-        .eth-frame{
-            display: flex;
-            justify-content: space-between;
-            width: 492px;
-            height: 232px;
-            padding: 24px 28px;
-            background-image: linear-gradient(90deg,rgba(246,140,250,.2),rgba(241,77,247,.2));
-            border: 2px solid rgba(241,77,247,.2);
-            box-shadow: 0 8px 16px 0 rgba(235,1,243,.29);
-            overflow: hidden;
-            border-radius: 24px;
-
-            div{
-                .heading04{
-                    width: 200px;
-                    color: $phlox;
-                    margin-bottom: 24px;
-                }
-
-                button{
-                    width: 148px;
-                    height: 52px;
-                    border-radius: 30px;
-                    padding: 0 24px;
-                    outline: none;
-                    border: none;
-                    background-color: rgba(247,241,255,.031372549);
-                    color: $white;
-                }
-            }
-        }
+    .heading01 {
+      width: 100%;
+      position: absolute;
+      text-align: center;
+      top: 60px;
+      color: $phlox;
     }
 
-
-    .stats{
-        border-top: 0.1rem solid hsla(0,0%,100%,.08);
-        padding: 24px 0 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        .stats-name{
-            color: $phlox;
-            margin-right: 24px;
+    .animation-cube {
+      display: flex;
+      justify-content: center;
+      video {
+        @include lessThan(xl) {
+          width: 900px;
+          height: 900px;
         }
+        @include lessThan(lg) {
+          width: 720px;
+          height: 720px;
+        }
+
+        @include lessThan(md) {
+          width: 500px;
+          height: 500px;
+        }
+      }
     }
+  }
+
+  .frame-note {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 100px;
+
+    @include lessThan(lg) {
+      width: 100%;
+      gap: 40px;
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .note {
+      width: 232px;
+      height: fit-content;
+      padding: 24px;
+      line-height: 1.5;
+      border-radius: 4px;
+      background: linear-gradient(to right, $white 2px, transparent 2px) 0 0,
+        linear-gradient(to left, $white 2px, transparent 2px) 100% 100%,
+        linear-gradient(to bottom, $white 2px, transparent 2px) 0 0,
+        linear-gradient(to top, $white 2px, transparent 2px) 100% 100%;
+
+      background-repeat: no-repeat;
+      background-size: 20px 20px;
+    }
+
+    .eth-frame {
+      display: flex;
+      justify-content: space-between;
+      width: 492px;
+      height: 232px;
+      padding: 24px 28px;
+      background-image: linear-gradient(
+        90deg,
+        rgba(246, 140, 250, 0.2),
+        rgba(241, 77, 247, 0.2)
+      );
+      border: 2px solid rgba(241, 77, 247, 0.2);
+      box-shadow: 0 8px 16px 0 rgba(235, 1, 243, 0.29);
+      overflow: hidden;
+      border-radius: 24px;
+      margin-left: 18%;
+
+      @include lessThan(md) {
+        margin-left: 0%;
+        width: 100%;
+        height: 180px;
+      }
+
+      div {
+        .heading04 {
+          width: 200px;
+          color: $phlox;
+          margin-bottom: 24px;
+        }
+
+        button {
+          width: 148px;
+          height: 52px;
+          border-radius: 30px;
+          padding: 0 24px;
+          outline: none;
+          border: none;
+          background-color: rgba(247, 241, 255, 0.031372549);
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .stats {
+    border-top: 0.1rem solid hsla(0, 0%, 100%, 0.08);
+    padding: 24px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .stats-name {
+      color: $phlox;
+      margin-right: 24px;
+    }
+    @include lessThan(lg) {
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+    }
+  }
 }

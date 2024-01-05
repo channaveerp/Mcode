@@ -1,58 +1,132 @@
-@import '/styles';
+@import "/styles";
 
-.ambassador{
-    width: 90%;
-    margin: 100px auto 0;
-    display: flex;
+.ambassador {
+  width: 100vw;
+  max-width: 1980px;
+  padding: 0 12%;
+  margin: 100px auto 0;
+  display: flex;
 
-    background: url('/img/glow2x.png');
-    background-size: 800px 800px;
-    height: 800px;
-    background-repeat: no-repeat;
-    background-position: top -30px left 0px;
-    position: relative;
+  background: url("/img/glow2x.png");
+  background-size: 800px 800px;
+  height: 800px;
+  background-repeat: no-repeat;
+  background-position: top -30px left 0px;
+  position: relative;
 
-    .animation{
-        flex: 0.45;
+  @include lessThan(xxl) {
+    padding: 0 8%;
+  }
+
+  @include lessThan(lg) {
+    flex-direction: column-reverse;
+    background: none;
+    height: 900px;
+  }
+
+  @include lessThan(md) {
+    flex-direction: column;
+  }
+
+  .animation {
+    flex: 0.45;
+    height: fit-content;
+
+    video {
+      position: absolute;
+      top: -180px;
+      left: -200px;
+      height: fit-content;
     }
 
-    .details{
-        flex: 0.55;
-        .paragraph01{
-            width: 630px;
-            font-size: 20px;
-            line-height: 1.5;
-        }
-
-        button{
-            width: 148px;
-            height: 52px;
-            border-radius: 30px;
-            padding: 0 24px;
-            outline: none;
-            border: none;
-            background-color: $indigo;
-            color: $white;
-            margin-top: 28px;
-            cursor: pointer;
-        }
+    @include lessThan(lg) {
+      flex: 0.6;
+      background: url("/img/glow2x.png");
+      height: 500px;
+      background-size: 500px 500px;
+      background-repeat: no-repeat;
+      background-position: center;
+      video {
+        top: 25%;
+        left: 15%;
+        width: 720px;
+        height: 720px;
+      }
     }
+
+    @include lessThan(md) {
+      height: 360px;
+      background-size: 360px 360px;
+      video {
+        top: -25%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        min-height: 280px;
+      }
+    }
+  }
+
+  .details {
+    flex: 0.55;
+
+    .paragraph01 {
+      margin-top: 16px;
+      width: fit-content;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    button {
+      width: 148px;
+      height: 52px;
+      border-radius: 30px;
+      padding: 0 24px;
+      outline: none;
+      border: none;
+      background-color: $indigo;
+      color: $white;
+      margin-top: 28px;
+      cursor: pointer;
+    }
+
+    @include lessThan(lg) {
+      width: 70%;
+      flex: 0.4;
+      margin-bottom: 60px;
+    }
+
+    @include lessThan(md) {
+      width: fit-content;
+    }
+  }
 }
 
-    .stats{
-        border-top: 0.1rem solid hsla(0,0%,100%,.08);
-        // padding-top: 36px;
-        padding: 36px 0 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+.stats {
+  width: 100vw;
+  max-width: 1980px;
+  padding: 36px 12% 0;
+  border-top: 0.1rem solid hsla(0, 0%, 100%, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-        .paragraph01{
-            font-size: 24px;
-        }
+  @include lessThan(xxl) {
+    padding: 36px 8% 0;
+  }
 
-        .stats-name{
-            color: $phlox;
-            margin-right: 24px;
-        }
-    }
+  @include lessThan(lg) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .paragraph01 {
+    font-size: 24px;
+  }
+
+  .stats-name {
+    color: $phlox;
+    margin-right: 24px;
+  }
+}
