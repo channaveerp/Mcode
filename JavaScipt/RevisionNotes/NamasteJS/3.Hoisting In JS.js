@@ -10,7 +10,7 @@
 
 // var x; // Declare x
 // x = 5; // Assign 5 to x
-//output = 5
+// output = 5
 
 // var a = 1;
 // var b = "abc";
