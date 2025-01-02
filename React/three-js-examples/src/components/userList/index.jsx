@@ -1,84 +1,77 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
-import axios from "axios";
 
 const UserTable = () => {
+  const url = "https://dummyjson.com/users";
   const [users, setUsers] = useState([]);
-  const [filteredUsers, setFilteredUsers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(10);
   const [loading, setLoading] = useState(true);
+  const [searchValue, setSearchValue] = useState("");
+  const [filterUsersData, setFilterUsersData] = useState([]);
 
-  //   // const fetchUsers = async () => {
-  //   //   try {
-  //   //     const url = "https://dummyjson.com/users";
-  //   //     const response = await fetch(url);
-  //   //     console.log("RESPONSE", response);
-  //   //     if (!response.ok) {
-  //   //       throw new Error("Network response was not ok.");
-  //   //     }
-  //   //     const data = await response.json();
-  //   //     setUsers(data);
-  //   //     setFilteredUsers(data); // Initialize filteredUsers with fetched data
-  //   //     setLoading(false); // Data loading completed
-  //   //   } catch (error) {
-  //   //     console.error("Error fetching users:", error);
-  //   //   }
-  //   // };
+  const [usersPerPage] = useState(5); // default users per page
+  const [currentPage, setCurrentPage] = useState(1); // default page will be 1
 
-  const fetchUsers = async () => {
-    try {
-      const response = await axios.get("https://dummyjson.com/users");
-      setUsers(response.data.users);
-      setFilteredUsers(response.data.users);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
+  const userData = () => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((res) => {
+        setUsers(res.users); // set user data from API
+        setLoading(false); // set loader false
+        setFilterUsersData(res.users);
+      });
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  const handleSearchChange = (event) => {
-    const searchTerm = event.target.value.toLowerCase();
-    setSearchTerm(searchTerm);
-    filterUsers(searchTerm);
-  };
-
-  const filterUsers = (searchTerm) => {
-    const filteredData = users.filter((user) =>
-      `${user.firstName} ${user.lastName}`.toLowerCase().includes(searchTerm)
+  // Filter user
+  const filterUsers = (searchKey) => {
+    const filteredData = users?.filter((user) =>
+      `${user.firstNmae} ${user.lastName}`
+        .toLocaleLowerCase()
+        .includes(searchKey)
     );
-    setFilteredUsers(filteredData);
-    setCurrentPage(1); // Reset to first page when filtering
+    setFilterUsersData(filteredData);
   };
 
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+  // Search User
+  const handleSearch = (event) => {
+    const value = event.target.value.toLowerCase();
+    setSearchValue(value);
+    filterUsers(value);
+  };
+
+  const indexOfLastUser = currentPage * usersPerPage; // 3 * 5 = 15
+  const indexOfFirstUser = indexOfLastUser - usersPerPage; // 15 - 5 = 10
+
+  const currentUsers = filterUsersData?.slice(
+    indexOfFirstUser,
+    indexOfLastUser
+  );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  useEffect(() => {
+    userData();
+  }, []);
+
   if (loading) {
-    return <div className='loader'>Loading...</div>;
+    return <div className='loader'>Loader...</div>;
   }
 
   return (
-    <div className='container'>
+    <div className='caontainer'>
+      {/* Search bar */}
       <div className='search-container'>
         <input
+          placeholder='enter user name'
           type='text'
-          placeholder='Search by Name'
-          value={searchTerm}
-          onChange={handleSearchChange}
+          onChange={handleSearch}
+          value={searchValue}
         />
       </div>
+      {/* Table */}
       <table className='user-table'>
         <thead>
           <tr>
+            <th>Sl</th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
@@ -88,12 +81,13 @@ const UserTable = () => {
           </tr>
         </thead>
         <tbody>
-          {currentUsers.map((user) => (
+          {currentUsers?.map((user, index) => (
             <tr key={user.id}>
-              <td>{`${user.firstName} ${user.lastName}`}</td>
-              <td>{user.email}</td>
-              <td>{user.phone}</td>
-              <td>{`${user.address.address}, ${user.address.city}, ${user.address.state}, ${user.address.country}`}</td>
+              <td>{user.id}</td>
+              <td>{`${user?.firstName} ${user?.lastName}`}</td>
+              <td>{user?.email}</td>
+              <td>{user?.phone}</td>
+              <td>{`${user.address.address}, ${user.address.city}`}</td>
               <td>{user.company.name}</td>
               <td>{user.role}</td>
             </tr>
@@ -104,25 +98,25 @@ const UserTable = () => {
       <div className='pagination-container'>
         <Pagination
           usersPerPage={usersPerPage}
-          totalUsers={filteredUsers.length}
-          paginate={paginate}
+          totalUser={filterUsersData.length}
           currentPage={currentPage}
+          paginate={paginate}
         />
       </div>
     </div>
   );
 };
 
-const Pagination = ({ usersPerPage, totalUsers, paginate, currentPage }) => {
-  const pageNumbers = [];
-
-  for (let i = 1; i <= Math.ceil(totalUsers / usersPerPage); i++) {
+const Pagination = ({ usersPerPage, totalUser, currentPage, paginate }) => {
+  const pageNumbers = []; // 1,2,3,4,5,6
+  // 30, 5 = 6;
+  const totalPages = Math.ceil(totalUser / usersPerPage);
+  for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
-
   return (
     <ul className='pagination'>
-      {pageNumbers.map((number) => (
+      {pageNumbers?.map((number) => (
         <li key={number}>
           <button
             className={`pagination-button ${
@@ -139,3 +133,5 @@ const Pagination = ({ usersPerPage, totalUsers, paginate, currentPage }) => {
 };
 
 export default UserTable;
+
+//  total List, per page list = total pages, currentPage, paginateToSelectedPage

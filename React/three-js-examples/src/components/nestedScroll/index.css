@@ -1,0 +1,10 @@
+.parent {
+  width: 700px;
+  margin: auto;
+  overflow-y: scroll;
+
+  ul {
+    height: 600px;
+    overflow-y: scroll;
+  }
+}

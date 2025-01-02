@@ -1,0 +1,12 @@
+.editor-container.ql-toolbar {
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  padding: 8px;
+}
+
+.editor-container.ql-editor {
+  min-height: 200px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+}

@@ -1,9 +1,15 @@
-function outer() {
-  const val = 10;
-  function inner() {
-    console.log("val is ", val);
-  }
-  return inner;
+function processing() {
+  return new Promise((resolve, reject) => {
+    resolve(1);
+    reject("Failed");
+    resolve(2);
+  });
 }
 
-outer()();
+function init() {
+  processing()
+    .then((v) => console.log(v))
+    .catch((err) => console.log(err));
+}
+
+init();

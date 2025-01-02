@@ -1,0 +1,27 @@
+/* Example CSS for Draft.js editor customization */
+.DraftEditor-root {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.public-DraftEditor-content {
+  min-height: 150px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+}
+
+/* Example custom styles for different block types */
+public-DraftStyleDefault-pre {
+  background-color: #f0f0f0;
+  padding: 10px;
+}
+
+.public-DraftStyleDefault-blockquote {
+  margin-left: 20px;
+  padding-left: 10px;
+  border-left: 2px solid #ccc;
+  font-style: italic;
+}

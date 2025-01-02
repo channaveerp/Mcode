@@ -5,6 +5,27 @@
 - Variables defined with let and const are hoisted to the top of the block, but not initialized.
 - Declarations that are made using var are initialized with a default value of undefined.
 
+Ref
+
+- https://www.freecodecamp.org/news/what-is-hoisting-in-javascript-3/
+- https://developer.mozilla.org/en-US/docs/Glossary/Hoisting
+
+### Note
+
+var vs let vs const
+scope
+variable shadowing
+Declaration
+Declaration without initialization
+
+```js
+var a;
+let b;
+const c; // declaration must be initialized
+```
+
+Reinitialization - var and let can be reinitialized and const can't
+
 ```js
 x = 5; // Assign 5 to x
 var x; // Declare x
@@ -142,3 +163,5 @@ function getRate1() {
 }
 console.log("Rate is ", getRate1()); // 10
 ```
+
+- check: Why self invoking setTimeout method don't wait for time, it triggers suddenly.

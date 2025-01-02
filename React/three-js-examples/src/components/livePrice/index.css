@@ -1,0 +1,44 @@
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: green;
+  margin-bottom: 20px;
+}
+
+.chart-container {
+  margin-bottom: 30px;
+}
+
+.range-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.range-buttons button {
+  background: none;
+  border: 2px solid #3b82f6;
+  color: #3b82f6;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.range-buttons button.active,
+.range-buttons button:hover {
+  background: #3b82f6;
+  color: white;
+}
