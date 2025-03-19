@@ -60,7 +60,17 @@ console.log(+str); // Output: 42
 
 **Explanation:**
 
-- The Document Object Model (DOM) represents the structure of a webpage as a tree of objects.
+- The Document Object Model (DOM) is a programming interface for web documents. It represents the structure of an HTML document as a tree of objects, where each element, attribute, and piece of text is a node that can be manipulated using JavaScript.
+
+**Key Characteristics:**
+
+- It allows dynamic updates to HTML and CSS.
+
+- It provides methods to traverse and modify elements.
+
+- It enables event handling in JavaScript.
+
+- The DOM is not part of JavaScript; it's an API provided by browsers.
 
 **Example:**
 
@@ -71,61 +81,244 @@ console.log(+str); // Output: 42
 </script>
 ```
 
+```html
+<p id="message">Hello, World!</p>
+<button onclick="changeText()">Click Me</button>
+<script>
+  function changeText() {
+    document.getElementById("message").innerText = "Hello, JavaScript!";
+  }
+</script>
+```
+
+`document.getElementById("message")` accesses the element.
+
+`.innerText` modifies its text content dynamically.
+
 ## 6. What is Event Propagation?
 
-**Explanation:**
+### **Definition**
 
-- Event propagation determines the order in which event handlers are called.
-- It consists of two phases: **capturing** and **bubbling**.
+Event Propagation determines how an event travels through the DOM when triggered. It occurs in **three phases**:
+
+1. **Capturing Phase** (Event travels from root to the target element)
+2. **Target Phase** (Event reaches the target element)
+3. **Bubbling Phase** (Event travels back from the target element to the root)
+
+## 6A. What is Event Deligation?
+
+### **Definition**
+
+**Event delegation** is a technique where a **single event listener is attached to a parent element** to manage events on multiple child elements, even if they are added dynamically.
+
+### **Example:**
+
+```js
+document.getElementById("list").addEventListener("click", (event) => {
+  if (event.target.classList.contains("item")) {
+    console.log("Item clicked:", event.target.innerText);
+  }
+});
+```
+
+#### **HTML:**
+
+```html
+<ul id="list">
+  <li class="item">Item 1</li>
+  <li class="item">Item 2</li>
+  <li class="item">Item 3</li>
+</ul>
+```
+
+### **Why Use Event Delegation?**
+
+- **Improves Performance** (Fewer event listeners).
+- **Handles Dynamic Elements**.
+- **Reduces Memory Usage**.
 
 ## 7. What's Event Bubbling?
 
-**Explanation:**
-
 - Events propagate from the target element up to its ancestors.
+- It is default in JS
+-
 
-**Example:**
+### **Definition**
 
-```javascript
-parentDiv.addEventListener("click", () => console.log("Parent clicked"));
-childDiv.addEventListener("click", () => console.log("Child clicked"));
-// Clicking on childDiv triggers both handlers.
+**Event Bubbling** is a part of event propagation where an event starts at the **target element** and propagates **upwards** through its parent elements.
+
+### **Example:**
+
+#### **HTML**
+
+```html
+<div id="parent">
+  <button id="child">Click Me</button>
+</div>
 ```
+
+#### **JavaScript**
+
+```js
+document.getElementById("parent").addEventListener("click", () => {
+  console.log("Parent Clicked");
+});
+
+document.getElementById("child").addEventListener("click", () => {
+  console.log("Child Clicked");
+});
+```
+
+#### **Output when clicking the button:**
+
+```
+Child Clicked
+Parent Clicked
+```
+
+- The event bubbles **from child → parent**.
 
 ## 8. What's Event Capturing?
 
-**Explanation:**
-
 - Events propagate from the root down to the target element.
 
-**Example:**
+### **Definition**
 
-```javascript
-parentDiv.addEventListener("click", () => console.log("Parent clicked"), true);
-childDiv.addEventListener("click", () => console.log("Child clicked"));
+**Event Capturing** (also called **trickling**) is the opposite of bubbling. The event starts at the **root element** and moves **down** to the target element.
+
+### **Example:**
+
+```js
+document.getElementById("parent").addEventListener(
+  "click",
+  () => {
+    console.log("Parent Capturing");
+  },
+  true
+);
+
+document.getElementById("child").addEventListener(
+  "click",
+  () => {
+    console.log("Child Clicked");
+  },
+  true
+);
 ```
+
+#### **Output when clicking the button:**
+
+```
+Parent Capturing
+Child Clicked
+```
+
+- The event **captures** from parent → child.
+- The third argument `true` enables capturing mode.
+
+---
 
 ## 9. What's the difference between `event.preventDefault()` and `event.stopPropagation()` methods?
 
-**Explanation:**
+### **A. `event.preventDefault()`**
 
-- `preventDefault()`: Stops the default action of an element.
-- `stopPropagation()`: Stops the event from propagating further.
+It **prevents the default action** of an element (e.g., stopping a form from submitting or preventing a link from navigating).
+
+#### **Example:** Prevent form submission
+
+```js
+document.querySelector("form").addEventListener("submit", function (event) {
+  event.preventDefault(); // Stops the form from submitting
+  console.log("Form submission prevented!");
+});
+```
+
+#### **Example:** Prevent link navigation
+
+```js
+document.querySelector("a").addEventListener("click", function (event) {
+  event.preventDefault();
+  console.log("Link navigation prevented!");
+});
+```
+
+### **B. `event.stopPropagation()`**
+
+It **stops the event from propagating** (bubbling or capturing) through the DOM.
+
+#### **Example:** Prevent event bubbling
+
+```js
+document.getElementById("parent").addEventListener("click", () => {
+  console.log("Parent Clicked");
+});
+
+document.getElementById("child").addEventListener("click", (event) => {
+  event.stopPropagation(); // Stops event from reaching parent
+  console.log("Child Clicked");
+});
+```
+
+#### **Output when clicking the button:**
+
+```
+Child Clicked
+```
+
+- **Parent Clicked** is NOT logged because `stopPropagation()` prevents bubbling.
 
 ## 10. How to know if the `event.preventDefault()` method was used in an element?
 
-**Explanation:**
+### **Method 1: Using `event.defaultPrevented`**
 
-- Use `event.defaultPrevented` to check.
+The `event.defaultPrevented` property returns `true` if `preventDefault()` was called.
 
-**Example:**
+#### **Example:**
 
-```javascript
-document.querySelector("a").addEventListener("click", (event) => {
+```js
+document.querySelector("a").addEventListener("click", function (event) {
   event.preventDefault();
-  console.log(event.defaultPrevented); // Output: true
+  console.log("Link navigation prevented!");
+  console.log("Was preventDefault() called?", event.defaultPrevented);
 });
 ```
+
+#### **Output:**
+
+```
+Link navigation prevented!
+Was preventDefault() called? true
+```
+
+### **Method 2: Wrapping `preventDefault()`**
+
+You can override `preventDefault()` to track calls.
+
+```js
+(function () {
+  const originalPreventDefault = Event.prototype.preventDefault;
+  Event.prototype.preventDefault = function () {
+    console.log("preventDefault() was called");
+    originalPreventDefault.call(this);
+  };
+})();
+```
+
+- This method **logs every call** to `preventDefault()` globally.
+
+---
+
+## **Conclusion**
+
+| Concept                     | Definition                                                                         |
+| --------------------------- | ---------------------------------------------------------------------------------- |
+| **DOM**                     | The browser's representation of an HTML document as a tree of nodes.               |
+| **Event Propagation**       | The way events move through the DOM (Capturing → Target → Bubbling).               |
+| **Event Bubbling**          | The event moves from target → parent elements.                                     |
+| **Event Capturing**         | The event moves from root → target element.                                        |
+| **event.preventDefault()**  | Stops the default behavior of an element (e.g., form submission, link navigation). |
+| **event.stopPropagation()** | Prevents the event from propagating (bubbling/capturing).                          |
+| **Event Delegation**        | Using a parent event listener to handle child events efficiently.                  |
 
 ## 11. Why does this code `obj.someprop.x` throw an error?
 
