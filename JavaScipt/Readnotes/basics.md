@@ -377,7 +377,7 @@ console.log(!!"hello"); // Output: true
 
 ```javascript
 let result = (console.log("Hello"), 2 + 2);
-console.log(result); // Output: 4
+console.log(result); // Output: Hello, 4
 ```
 
 ## 18. What is Hoisting?
@@ -440,13 +440,309 @@ if (!value) {
 
 **Explanation:**
 
-- Enforces stricter parsing and error handling.
+`"use strict"` is a directive in JavaScript that enables **strict mode**, which helps catch common programming mistakes and prevents the use of problematic features. It was introduced in **ECMAScript 5 (ES5)** and improves code security and performance.
+
+---
+
+## 🔹 Why Use `"use strict"`?
+
+Strict mode helps in:
+
+1. **Catching silent errors** – Some JavaScript errors that would otherwise fail silently will now throw an error.
+2. **Preventing accidental globals** – Stops unintentional creation of global variables.
+3. **Restricting the use of unsafe features** – Disallows dangerous features like `with` statements.
+4. **Making debugging easier** – Throws errors for mistakes, making issues easier to find.
+5. **Potential performance optimizations** – Allows JavaScript engines to optimize code better.
+
+---
+
+## 🔹 How to Enable `"use strict"`
+
+### 1️⃣ Strict Mode for an Entire Script
+
+```javascript
+"use strict";
+
+x = 10; // ❌ ReferenceError: x is not defined
+console.log(x);
+```
+
+- Without strict mode, JavaScript would create `x` as a global variable.
+- With strict mode, JavaScript throws an error because `x` is not explicitly declared (`let`, `const`, or `var`).
+
+### 2️⃣ Strict Mode for a Specific Function
+
+```javascript
+function myFunction() {
+  "use strict";
+  y = 20; // ❌ ReferenceError: y is not defined
+  console.log(y);
+}
+
+myFunction();
+```
+
+- Outside the function, the script runs in normal mode.
+- Inside the function, strict mode is enabled.
+
+---
+
+## 🔹 Common Errors Caught by `"use strict"`
+
+### ✅ 1. Preventing Accidental Global Variables
+
+```javascript
+"use strict";
+x = 5; // ❌ ReferenceError: x is not defined
+```
+
+---
+
+### ✅ 2. Preventing Duplicate Parameter Names
+
+```javascript
+"use strict";
+function sum(a, a) {
+  // ❌ SyntaxError: Duplicate parameter name not allowed
+  return a + a;
+}
+```
+
+---
+
+### ✅ 3. Preventing Assignment to Read-Only Properties
+
+```javascript
+"use strict";
+const obj = Object.freeze({ name: "Alice" });
+obj.name = "Bob"; // ❌ TypeError: Cannot assign to read-only property 'name'
+```
+
+---
+
+### ✅ 4. Preventing `delete` on Variables or Functions
+
+```javascript
+"use strict";
+let num = 10;
+delete num; // ❌ SyntaxError: Delete of an unqualified identifier
+```
+
+---
+
+### ✅ 5. Restricting the `with` Statement
+
+```javascript
+"use strict";
+with (Math) {
+  // ❌ SyntaxError: Strict mode code may not include a with statement
+  let x = round(4.5);
+}
+```
+
+---
+
+## 🔹 Does `"use strict"` Apply to Modules?
+
+Yes, **ES6 modules (`import`/`export`) use strict mode by default**, so there's no need to add `"use strict"` manually.
+
+Example:
+
+```javascript
+// In an ES6 module
+export function test() {
+  undeclaredVar = 42; // ❌ ReferenceError in strict mode
+}
+```
+
+---
+
+## 🔹 Should You Always Use `"use strict"`?
+
+Yes, **it's a good practice** to always enable strict mode, as it helps catch common mistakes and enforces better coding standards. However, when working with older codebases, enabling strict mode may break existing scripts that rely on non-strict behavior.
+
+---
+
+## 🔹 Conclusion
+
+- `"use strict"` **enables strict mode**, making JavaScript safer and reducing errors.
+- It **prevents accidental globals, duplicate parameters, and unsafe assignments**.
+- It **throws errors for silent mistakes**, helping developers debug code more easily.
+- It is **automatically enabled in ES6 modules**.
+
+Would you like a real-world use case example? 🚀
 
 ## 24. What's the value of `this` in JavaScript?
 
 **Explanation:**
 
-- Depends on the context (global, object, function).
+In JavaScript, the `this` keyword refers to an object. The object it refers to **depends on how the function is called**.
+
+---
+
+## 🔹 `this` in Global Space
+
+Anything defined globally is said to be in a **global space**.
+
+```javascript
+console.log(this); // Refers to global object (window in browsers)
+```
+
+💡 **Note:** The global object differs based on the runtime environment. In **browsers**, it is `window`, while in **Node.js**, it is `global`.
+
+---
+
+## 🔹 `this` Inside a Function
+
+```javascript
+function x() {
+  console.log(this);
+}
+x();
+```
+
+- **In non-strict mode**: `this` refers to the **global object** (`window` in browsers).
+- **In strict mode (`'use strict'`)**: `this` is `undefined`.
+
+```javascript
+"use strict";
+function x() {
+  console.log(this); // undefined
+}
+x();
+```
+
+### ❗ `this` Substitution in Non-Strict Mode
+
+- If `this` is `null` or `undefined` in non-strict mode, **it gets replaced by the global object**.
+- This is why `this` inside a function (in non-strict mode) refers to the global object.
+
+```javascript
+function x() {
+  console.log(this); // window (non-strict mode)
+}
+x();
+window.x(); // Still window
+```
+
+---
+
+## 🔹 `this` Inside an Object's Method
+
+If `this` is inside an object method, it refers to the object itself.
+
+```javascript
+const obj = {
+  a: 10,
+  x: function () {
+    console.log(this); // {a: 10, x: f()}
+    console.log(this.a); // 10
+  },
+};
+obj.x();
+```
+
+Here, `this` refers to `obj`, the object that owns the method.
+
+---
+
+## 🔹 `this` in `call()`, `apply()`, and `bind()`
+
+These methods allow us to **explicitly set** the value of `this`.
+
+```javascript
+const student = {
+  name: "Alok",
+  printName: function () {
+    console.log(this.name);
+  },
+};
+student.printName(); // Alok
+
+const student2 = {
+  name: "Kajal",
+};
+
+// student2.printName(); // ❌ Error: printName is not a function
+
+student.printName.call(student2); // ✅ Outputs: Kajal
+```
+
+- **`call()`** and **`apply()`** invoke the function immediately with a new `this` value.
+- **`bind()`** returns a new function with `this` permanently set.
+
+---
+
+## 🔹 `this` Inside an Arrow Function
+
+Arrow functions **do not have their own `this`**. Instead, they inherit `this` from their **enclosing lexical scope**.
+
+```javascript
+const obj = {
+  a: 10,
+  x: () => {
+    console.log(this); // window (not obj)
+  },
+};
+obj.x();
+```
+
+### 🔹 Arrow Function Inside a Regular Function
+
+```javascript
+const obj2 = {
+  a: 10,
+  x: function () {
+    const y = () => {
+      console.log(this);
+    };
+    y();
+  },
+};
+obj2.x();
+```
+
+- Here, `y` is an arrow function inside `x`, so it inherits `this` from `x`, which means `this` refers to `obj2`.
+
+---
+
+## 🔹 `this` Inside DOM Event Handlers
+
+In an **event listener**, `this` refers to the **element that triggered the event**.
+
+```html
+<button onclick="alert(this)">Click Me</button>
+<!-- Alerts: [object HTMLButtonElement] -->
+```
+
+---
+
+## 🔹 Summary Table
+
+| Context                           | Value of `this`         |
+| --------------------------------- | ----------------------- |
+| Global scope (browser)            | `window`                |
+| Global scope (Node.js)            | `{}` (empty object)     |
+| Regular function (non-strict)     | `window` (or global)    |
+| Regular function (`'use strict'`) | `undefined`             |
+| Object method                     | The object itself       |
+| Constructor function              | New instance            |
+| Arrow function                    | Lexical `this`          |
+| Event listener                    | The element clicked     |
+| `call()` / `apply()`              | Explicitly set value    |
+| `bind()`                          | Permanently bound value |
+
+---
+
+## 🔹 Conclusion
+
+- The value of `this` **depends on how a function is called**.
+- In regular functions, it refers to the **global object**, but in **strict mode**, it is `undefined`.
+- In **methods**, it refers to the object that owns the method.
+- **Arrow functions** inherit `this` from their surrounding scope.
+- `call()`, `apply()`, and `bind()` **explicitly set `this`**.
+
+Would you like real-world examples for better understanding? 🚀
 
 ## 25. What is the prototype of an object?
 

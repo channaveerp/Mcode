@@ -12,4 +12,7 @@ function init() {
     .catch((err) => console.log(err));
 }
 
-init();
+// init();
+
+let result = (console.log("Hello"), 2 + 2);
+console.log(result); // Output: Hello, 4
