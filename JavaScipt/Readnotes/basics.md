@@ -1,5 +1,6 @@
 Prepare here: https://devtools.tech/lists/all
 Namaste JS:- https://alok722.github.io/namaste-javascript-notes/dist/lectures.html;
+code - https://github.com/ganqqwerty/123-Essential-JavaScript-Interview-Questions
 
 ## 1. What's the difference between undefined and null?
 
@@ -570,8 +571,6 @@ Yes, **it's a good practice** to always enable strict mode, as it helps catch co
 - It **throws errors for silent mistakes**, helping developers debug code more easily.
 - It is **automatically enabled in ES6 modules**.
 
-Would you like a real-world use case example? 🚀
-
 ## 24. What's the value of `this` in JavaScript?
 
 **Explanation:**
@@ -742,63 +741,735 @@ In an **event listener**, `this` refers to the **element that triggered the even
 - **Arrow functions** inherit `this` from their surrounding scope.
 - `call()`, `apply()`, and `bind()` **explicitly set `this`**.
 
-Would you like real-world examples for better understanding? 🚀
-
 ## 25. What is the prototype of an object?
 
 **Explanation:**
 
-- An object from which other objects inherit properties.
+In JavaScript, every object has an internal property called `[[Prototype]]`, which allows it to inherit properties and methods from another object. This forms the basis of **prototype-based inheritance**.
+
+You can access an object's prototype using:
+
+```javascript
+console.log(Object.getPrototypeOf(obj));
+```
+
+Alternatively, in most environments, you can use:
+
+```javascript
+console.log(obj.__proto__);
+```
+
+---
+
+## 🔹 How Prototypes Work
+
+When you try to access a property on an object, JavaScript first looks for that property on the object itself. If it doesn’t find it, it looks up the prototype chain until it either finds the property or reaches the end of the chain (`null`).
+
+### Example:
+
+```javascript
+const person = {
+  greet: function () {
+    console.log("Hello!");
+  },
+};
+
+const user = Object.create(person); // `user` inherits from `person`
+user.greet(); // Output: "Hello!"
+```
+
+Here, `user` does not have a `greet` method, but since its prototype (`person`) does, it can access `greet()` through prototype inheritance.
+
+---
+
+## 🔹 The Prototype Chain
+
+The prototype chain is a series of linked objects. If a property or method is not found in an object, JavaScript looks for it in its prototype, then in the prototype’s prototype, and so on until it reaches `null`.
+
+### Example:
+
+```javascript
+console.log(user.__proto__); // person
+console.log(user.__proto__.__proto__); // Object prototype
+console.log(user.__proto__.__proto__.__proto__); // null (end of chain)
+```
+
+---
+
+## 🔹 Constructor Functions and Prototypes
+
+Every function in JavaScript has a `prototype` property, which is used to create new objects when the function is used as a constructor.
+
+### Example:
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.sayHello = function () {
+  console.log("Hello, " + this.name);
+};
+
+const alice = new Person("Alice");
+alice.sayHello(); // Output: "Hello, Alice"
+```
+
+Here, `alice` does not have a `sayHello` method, but its prototype (`Person.prototype`) does, so it can access it.
+
+---
+
+## 🔹 Changing an Object’s Prototype
+
+You can change an object’s prototype dynamically using:
+
+```javascript
+Object.setPrototypeOf(obj, newPrototype);
+```
+
+Example:
+
+```javascript
+const newProto = {
+  greet: function () {
+    console.log("Hi!");
+  },
+};
+
+Object.setPrototypeOf(user, newProto);
+user.greet(); // Output: "Hi!"
+```
+
+---
+
+## 🔹 `hasOwnProperty()` and Prototype Properties
+
+To check whether an object has a property directly (not inherited), use `hasOwnProperty()`:
+
+```javascript
+console.log(user.hasOwnProperty("greet")); // false (inherited)
+console.log(person.hasOwnProperty("greet")); // true (directly on `person`)
+```
+
+---
+
+## 🔹 Summary Table
+
+| Concept                             | Explanation                                                             |
+| ----------------------------------- | ----------------------------------------------------------------------- |
+| `[[Prototype]]`                     | Internal link to another object for inheritance                         |
+| `Object.create(proto)`              | Creates an object with `proto` as its prototype                         |
+| `Object.getPrototypeOf(obj)`        | Returns the prototype of an object                                      |
+| `Object.setPrototypeOf(obj, proto)` | Sets a new prototype for an object                                      |
+| `.prototype`                        | Property of functions used for inheritance in constructor functions     |
+| `.hasOwnProperty(prop)`             | Checks if a property exists directly on an object, not in its prototype |
+
+---
+
+## 🔹 Conclusion
+
+- Every object in JavaScript has a prototype.
+- Prototypes enable inheritance, reducing memory usage by sharing methods across instances.
+- The prototype chain allows properties/methods to be searched up the hierarchy.
+- You can manipulate prototypes dynamically, but be cautious as it may lead to performance issues.
 
 ## 26. What is an IIFE, what is the use of it?
 
 **Explanation:**
 
-- Immediately Invoked Function Expression.
+An **Immediately Invoked Function Expression (IIFE)** is a JavaScript function that is executed **immediately after it is defined**.
 
-**Example:**
+It has the following syntax:
 
 ```javascript
 (function () {
-  console.log("IIFE");
+  console.log("This is an IIFE");
 })();
 ```
+
+### Explanation:
+
+- The function is **wrapped in parentheses** `(function() { ... })` to make it an **expression**.
+- The **`()` at the end** invokes the function immediately.
+
+Alternatively, you can use an **arrow function IIFE**:
+
+```javascript
+(() => {
+  console.log("IIFE with arrow function");
+})();
+```
+
+---
+
+## 🔹 Why Use an IIFE?
+
+1. **Avoid Polluting the Global Scope** 🧹
+
+   - Variables inside an IIFE are **not accessible globally**, preventing accidental overwrites.
+
+   ```javascript
+   (function () {
+     var message = "Hello, World!";
+     console.log(message); // Accessible here
+   })();
+
+   console.log(message); // ❌ Error: message is not defined
+   ```
+
+2. **Encapsulation & Data Privacy** 🔒
+
+   - Helps in **creating private variables and functions** that are not accessible outside the IIFE.
+
+   ```javascript
+   const counter = (function () {
+     let count = 0;
+     return {
+       increment: function () {
+         return ++count;
+       },
+       decrement: function () {
+         return --count;
+       },
+     };
+   })();
+
+   console.log(counter.increment()); // 1
+   console.log(counter.decrement()); // 0
+   console.log(counter.count); // ❌ Undefined (count is private)
+   ```
+
+3. **Avoid Conflicts in Global Scope (Useful in Modules & Libraries)** 📦
+
+   - When multiple scripts run on the same page, an IIFE **prevents naming collisions**.
+
+   ```javascript
+   (function ($) {
+     console.log("Using jQuery IIFE", $);
+   })(jQuery); // Passing jQuery as an argument
+   ```
+
+4. **Executing Code Immediately** ⏩
+
+   - Useful for running setup code **once at the beginning** of a script.
+
+   ```javascript
+   (function () {
+     console.log("App Initialized");
+   })();
+   ```
+
+5. **Creating a Singleton** 👤
+
+   - Helps in implementing a **singleton pattern**, ensuring only **one instance** exists.
+
+   ```javascript
+   const AppConfig = (function () {
+     const settings = {
+       apiKey: "123456",
+       theme: "dark",
+     };
+     return {
+       get: function (key) {
+         return settings[key];
+       },
+     };
+   })();
+
+   console.log(AppConfig.get("theme")); // dark
+   ```
+
+---
+
+## 🔹 Summary Table
+
+| Feature             | Explanation                                                      |
+| ------------------- | ---------------------------------------------------------------- |
+| **Syntax**          | `(function() { ... })();`                                        |
+| **Scope Isolation** | Variables inside an IIFE **don't affect global scope**           |
+| **Encapsulation**   | Data inside an IIFE remains **private**                          |
+| **Use Cases**       | Prevents conflicts, initialization, module patterns, data hiding |
+| **Variants**        | `(function() { ... })();` and `(() => { ... })();`               |
+
+## 🔹 Conclusion
+
+IIFEs are powerful for **scoping, preventing global pollution, and ensuring data privacy**. They are widely used in **JavaScript modules, design patterns, and initialization scripts**.
+
+---
+
+---
 
 ## 27. What is the use of Function.prototype.apply method?
 
 **Explanation:**
 
-- Calls a function with a given `this` and arguments array.
+The **`apply()`** method in JavaScript allows you to call a function **with a specified `this` value and arguments provided as an array** (or an array-like object).
+
+**Syntax:**
+
+```javascript
+func.apply(thisArg, [argsArray]);
+```
+
+- `func`: The function to be invoked.
+- `thisArg`: The value of `this` inside the function.
+- `argsArray`: An array or array-like object containing the arguments.
+
+---
+
+## 🔹 How `apply()` Works
+
+### Example 1: Using `apply()` to Call a Function with Arguments
+
+```javascript
+function greet(greeting, punctuation) {
+  console.log(greeting + ", " + this.name + punctuation);
+}
+
+const person = { name: "Alice" };
+
+greet.apply(person, ["Hello", "!"]); // Output: Hello, Alice!
+```
+
+📌 **Explanation:**
+
+- `apply()` sets `this` to `person`, so `this.name` becomes `"Alice"`.
+- The function receives arguments from an array `["Hello", "!"]`.
+
+---
+
+### Example 2: Using `apply()` for Array Manipulation
+
+Since **`Math.max()` and `Math.min()`** do not accept arrays directly, we can use `apply()` to pass an array of numbers:
+
+```javascript
+const numbers = [3, 5, 8, 1, 9];
+
+const maxNumber = Math.max.apply(null, numbers);
+const minNumber = Math.min.apply(null, numbers);
+
+console.log(maxNumber); // Output: 9
+console.log(minNumber); // Output: 1
+```
+
+📌 **Explanation:**
+
+- `null` is used as `this` since `Math.max()` does not rely on `this`.
+- `apply()` spreads the array elements as function arguments.
+
+---
+
+### Example 3: Borrowing Methods from Other Objects
+
+You can use `apply()` to borrow methods from one object and use them on another.
+
+```javascript
+const student = {
+  name: "John",
+  introduce: function (age, city) {
+    console.log(`Hi, I'm ${this.name}, ${age} years old from ${city}.`);
+  },
+};
+
+const student2 = { name: "Emma" };
+
+student.introduce.apply(student2, [25, "New York"]);
+// Output: Hi, I'm Emma, 25 years old from New York.
+```
+
+📌 **Explanation:**
+
+- The `introduce` method is borrowed from `student` and used for `student2`.
+- `this` now refers to `student2`, and parameters are passed as an array.
+
+---
+
+### Example 4: Using `apply()` for Constructor Inheritance
+
+When creating objects using constructors, `apply()` helps in **calling another constructor inside a new one**.
+
+```javascript
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+function Student(name, age, grade) {
+  Person.apply(this, [name, age]);
+  this.grade = grade;
+}
+
+const student1 = new Student("Jake", 20, "A");
+console.log(student1); // Output: { name: 'Jake', age: 20, grade: 'A' }
+```
+
+📌 **Explanation:**
+
+- `apply()` calls `Person` inside `Student`, reusing the logic for `name` and `age`.
+- This avoids redundant code when inheriting properties from `Person`.
+
+---
+
+## 🔹 Difference Between `call()` and `apply()`
+
+| Feature          | `call()`                                               | `apply()`                                                |
+| ---------------- | ------------------------------------------------------ | -------------------------------------------------------- |
+| Arguments format | Passed individually (`func.call(thisArg, arg1, arg2)`) | Passed as an array (`func.apply(thisArg, [arg1, arg2])`) |
+| Use case         | When arguments are known beforehand                    | When arguments are stored in an array                    |
+| Example          | `func.call(obj, a, b, c)`                              | `func.apply(obj, [a, b, c])`                             |
+
+---
+
+## 🔹 Summary
+
+- `apply()` is used to **invoke functions with a specified `this` value** and an **array of arguments**.
+- It is useful for **method borrowing, array manipulation, and constructor inheritance**.
+- It differs from `call()` in how arguments are passed (`apply()` uses an array, `call()` uses individual arguments).
+- It is particularly useful when working with **Math functions, function borrowing, and object inheritance**.
 
 ## 28. What is the use of Function.prototype.call method?
 
 **Explanation:**
 
-- Calls a function with a given `this` and arguments individually.
+The `call()` method is a built-in function in JavaScript that allows you to invoke a function with a specified `this` value and arguments provided **individually**.
+
+## Syntax
+
+```javascript
+functionName.call(thisArg, arg1, arg2, ...)
+```
+
+- `thisArg` → The value to be used as `this` when executing the function.
+- `arg1, arg2, ...` → Arguments passed **individually** to the function.
+
+---
+
+## 🔹 Why Use `call()`?
+
+### 1️⃣ **Setting `this` explicitly**
+
+```javascript
+const person = {
+  name: "Alice",
+  greet: function () {
+    console.log("Hello, " + this.name);
+  },
+};
+
+const person2 = { name: "Bob" };
+
+person.greet.call(person2); // "Hello, Bob"
+```
+
+💡 The `call()` method allows `greet()` to execute with `this` bound to `person2` instead of `person`.
+
+---
+
+### 2️⃣ **Using `call()` for Inheritance (Function Borrowing)**
+
+```javascript
+const student = {
+  name: "John",
+  introduce: function () {
+    console.log("My name is " + this.name);
+  },
+};
+
+const teacher = { name: "Mr. Smith" };
+
+student.introduce.call(teacher); // "My name is Mr. Smith"
+```
+
+Here, `introduce` is borrowed from `student` and applied to `teacher`.
+
+---
+
+### 3️⃣ **Calling Functions with Arguments**
+
+```javascript
+function multiply(a, b) {
+  console.log(a * b);
+}
+
+multiply.call(null, 5, 3); // 15
+```
+
+In this case, `this` is not used inside `multiply()`, so we pass `null`.
+
+---
+
+### 4️⃣ **Using `call()` with Built-in Functions**
+
+#### Converting an Array-like Object to an Array
+
+```javascript
+function printArguments() {
+  const args = Array.prototype.slice.call(arguments);
+  console.log(args);
+}
+
+printArguments(1, 2, 3, 4); // [1, 2, 3, 4]
+```
+
+`arguments` is an array-like object, and `call()` helps convert it into an array.
+
+---
+
+## 🔹 `call()` vs `apply()` vs `bind()`
+
+| Method    | Invocation Style           | Arguments Format    | Returns                                         |
+| --------- | -------------------------- | ------------------- | ----------------------------------------------- |
+| `call()`  | Calls function immediately | Passed individually | `undefined` (unless function returns something) |
+| `apply()` | Calls function immediately | Passed as an array  | `undefined` (unless function returns something) |
+| `bind()`  | Returns a new function     | Passed individually | New function                                    |
+
+---
+
+## 🔹 Summary
+
+- `call()` allows **explicitly setting `this`** for a function.
+- It is useful for **function borrowing** and invoking functions with **specific arguments**.
+- Unlike `apply()`, `call()` takes arguments **individually**.
+- Unlike `bind()`, it **executes immediately** instead of returning a new function.
+
+---
 
 ## 29. What's the difference between Function.prototype.apply and Function.prototype.call?
 
 **Explanation:**
 
-- `apply`: Accepts arguments as an array.
-- `call`: Accepts arguments individually.
+Both `apply()` and `call()` are built-in JavaScript methods that allow you to invoke a function with a specific `this` value. The key difference between them is **how they pass arguments** to the function.
+
+---
+
+## 🔹 Syntax & Key Difference
+
+### `call()` Syntax:
+
+```javascript
+functionName.call(thisArg, arg1, arg2, ...);
+```
+
+- Accepts arguments **individually**.
+
+### `apply()` Syntax:
+
+```javascript
+functionName.apply(thisArg, [arg1, arg2, ...]);
+```
+
+- Accepts arguments as an **array or array-like object**.
+
+---
+
+## 🔹 Example 1: Passing Arguments
+
+### Using `call()`:
+
+```javascript
+function greet(name, age) {
+  console.log(`Hello, my name is ${name} and I am ${age} years old.`);
+}
+
+greet.call(null, "Alice", 25);
+// Output: Hello, my name is Alice and I am 25 years old.
+```
+
+### Using `apply()`:
+
+```javascript
+function greet(name, age) {
+  console.log(`Hello, my name is ${name} and I am ${age} years old.`);
+}
+
+greet.apply(null, ["Alice", 25]);
+// Output: Hello, my name is Alice and I am 25 years old.
+```
+
+---
+
+## 🔹 Example 2: Using `Math.max()`
+
+`apply()` is useful when dealing with an array of values.
+
+### Using `apply()`:
+
+```javascript
+const numbers = [3, 7, 1, 9, 5];
+const max = Math.max.apply(null, numbers);
+console.log(max); // Output: 9
+```
+
+### Using `call()` (Incorrect Way):
+
+```javascript
+// Math.max expects individual numbers, so using call requires manual unpacking
+const max = Math.max.call(null, 3, 7, 1, 9, 5);
+console.log(max); // Output: 9
+```
+
+`apply()` is more convenient when working with an array of values.
+
+---
+
+## 🔹 Example 3: Borrowing Methods
+
+```javascript
+const person = {
+  fullName: function (city, country) {
+    console.log(`${this.firstName} ${this.lastName} from ${city}, ${country}`);
+  },
+};
+
+const user = {
+  firstName: "John",
+  lastName: "Doe",
+};
+
+person.fullName.call(user, "New York", "USA");
+// Output: John Doe from New York, USA
+
+person.fullName.apply(user, ["New York", "USA"]);
+// Output: John Doe from New York, USA
+```
+
+Both `call()` and `apply()` achieve the same result, but `apply()` takes the arguments as an array.
+
+---
+
+## 🔹 When to Use `call()` vs `apply()`
+
+| Use Case                                           | `call()` | `apply()` |
+| -------------------------------------------------- | -------- | --------- |
+| When arguments are known beforehand                | ✅       | ❌        |
+| When arguments are stored in an array              | ❌       | ✅        |
+| Borrowing methods                                  | ✅       | ✅        |
+| Working with `Math.max` and `Math.min` on an array | ❌       | ✅        |
+
+---
+
+## 🔹 Summary
+
+- **Both `call()` and `apply()` invoke a function immediately with a specified `this` value.**
+- **Main difference:** `call()` takes arguments individually, while `apply()` takes them as an array.
+- **Use `apply()` when arguments are in an array-like format.**
+- **Use `call()` when arguments are passed explicitly one by one.**
 
 ## 30. What is the usage of Function.prototype.bind?
 
 **Explanation:**
 
-- Returns a new function with `this` and arguments bound.
+The `bind()` method creates a **new function** that, when invoked, has its `this` value **permanently set** to the first argument provided to `bind()`. Unlike `call()` and `apply()`, it does **not** execute the function immediately.
 
-**Example:**
+## 🔹 Syntax
 
 ```javascript
-let obj = { a: 10 };
-function print() {
-  console.log(this.a);
-}
-const boundFunc = print.bind(obj);
-boundFunc(); // Output: 10
+const boundFunction = functionName.bind(thisArg, arg1, arg2, ...);
 ```
+
+- `thisArg`: The value to be set as `this` inside the function.
+- `arg1, arg2, ...`: Optional arguments to be **pre-set** when calling the new function.
+- Returns a **new function** with `this` bound to `thisArg`.
+
+---
+
+## 🔹 Example 1: Binding `this`
+
+```javascript
+const person = {
+  name: "Alice",
+  greet: function () {
+    console.log("Hello, " + this.name);
+  },
+};
+
+const greetFunc = person.greet.bind(person);
+greetFunc(); // Output: "Hello, Alice"
+```
+
+Here, `bind()` ensures that `this` inside `greetFunc` always refers to `person`.
+
+---
+
+## 🔹 Example 2: Using `bind()` for Function Borrowing
+
+```javascript
+const student = {
+  name: "John",
+  introduce: function () {
+    console.log("My name is " + this.name);
+  },
+};
+
+const teacher = { name: "Mr. Smith" };
+
+const teacherIntro = student.introduce.bind(teacher);
+teacherIntro(); // Output: "My name is Mr. Smith"
+```
+
+`bind()` allows us to reuse the `introduce()` method with a different object (`teacher`).
+
+---
+
+## 🔹 Example 3: Using `bind()` with Partial Application
+
+`bind()` can also be used to **pre-set** function arguments.
+
+```javascript
+function multiply(a, b) {
+  return a * b;
+}
+
+const double = multiply.bind(null, 2);
+console.log(double(5)); // Output: 10
+```
+
+Here, `double` is a new function where the first argument (`a`) is permanently set to `2`.
+
+---
+
+## 🔹 Example 4: `bind()` in Event Listeners
+
+```javascript
+const button = document.querySelector("button");
+const user = {
+  name: "Emma",
+  handleClick: function () {
+    console.log(this.name + " clicked the button");
+  },
+};
+
+button.addEventListener("click", user.handleClick.bind(user));
+```
+
+Without `bind()`, `this` inside `handleClick` would refer to the button element instead of `user`.
+
+---
+
+## 🔹 `bind()` vs `call()` vs `apply()`
+
+| Method    | Invocation                                           | Arguments Format    | Returns               |
+| --------- | ---------------------------------------------------- | ------------------- | --------------------- |
+| `bind()`  | Returns a **new function**, not executed immediately | Passed individually | A new function        |
+| `call()`  | Executes **immediately**                             | Passed individually | Function return value |
+| `apply()` | Executes **immediately**                             | Passed as an array  | Function return value |
+
+---
+
+## 🔹 When to Use `bind()`
+
+- When you need to **ensure `this` remains unchanged**.
+- When **passing a function as a callback** (e.g., event listeners, setTimeout).
+- When **pre-setting arguments** for a function (**partial application**).
+- When using **method borrowing**.
+
+---
+
+## 🚀 Summary
+
+- `bind()` **creates a new function** with `this` permanently set.
+- Unlike `call()` and `apply()`, it **does not execute immediately**.
+- It is useful for **ensuring the correct `this` value**, **function borrowing**, and **partial function application**.
 
 ## 31. What is Functional Programming and what are the features of JavaScript that makes it a candidate as a functional language?
 
@@ -807,27 +1478,365 @@ boundFunc(); // Output: 10
 - Functional programming is a programming paradigm where functions are treated as first-class citizens and emphasizes immutability and pure functions.
 - JavaScript supports higher-order functions, closures, and first-class functions, making it suitable for functional programming.
 
+## 🔹 What is Functional Programming?
+
+Functional Programming (FP) is a programming paradigm that treats computation as the evaluation of **pure functions** and avoids changing state and mutable data. It emphasizes **declarative** code, immutability, and function composition.
+
+FP is widely used in JavaScript to write **cleaner, more modular, and reusable code**.
+
+---
+
+## 🔹 Key Principles of Functional Programming
+
+### 1️⃣ **Pure Functions**
+
+A pure function is a function that:
+
+- Given the same input, always returns the same output.
+- Has **no side effects** (does not modify external state).
+
+```javascript
+// Pure Function Example
+function add(a, b) {
+  return a + b;
+}
+console.log(add(2, 3)); // Always returns 5
+```
+
+---
+
+### 2️⃣ **Immutability**
+
+Immutability means **data does not change** after it is created. Instead of modifying data, FP creates **new copies**.
+
+```javascript
+const numbers = [1, 2, 3];
+const newNumbers = [...numbers, 4]; // Creates a new array instead of modifying the original
+console.log(newNumbers); // [1, 2, 3, 4]
+```
+
+---
+
+### 3️⃣ **First-Class and Higher-Order Functions**
+
+- **First-Class Functions**: Functions can be assigned to variables, passed as arguments, and returned from other functions.
+- **Higher-Order Functions (HOFs)**: Functions that take other functions as arguments or return functions.
+
+```javascript
+// Higher-Order Function Example
+function multiplyBy(factor) {
+  return function (number) {
+    return number * factor;
+  };
+}
+
+const double = multiplyBy(2);
+console.log(double(5)); // 10
+```
+
+---
+
+### 4️⃣ **Function Composition**
+
+Combining multiple functions to create a new function.
+
+```javascript
+const add = (a) => a + 2;
+const multiply = (a) => a * 3;
+const composedFunction = (x) => multiply(add(x));
+console.log(composedFunction(2)); // (2 + 2) * 3 = 12
+```
+
+---
+
+### 5️⃣ **Avoiding Side Effects**
+
+A side effect occurs when a function modifies something outside its scope.
+
+```javascript
+let counter = 0;
+function increment() {
+  counter++; // Side effect: modifies external state
+}
+```
+
+A **pure function** would return a new value instead:
+
+```javascript
+function pureIncrement(count) {
+  return count + 1;
+}
+console.log(pureIncrement(5)); // 6
+```
+
+---
+
+## 🔹 Why is JavaScript a Functional Programming Language?
+
+JavaScript supports several FP features that make it a **functional language**:
+
+✅ **First-Class Functions** (functions are treated as values)
+
+```javascript
+const sayHello = () => console.log("Hello");
+const greet = sayHello;
+greet(); // "Hello"
+```
+
+✅ **Higher-Order Functions**
+
+```javascript
+const numbers = [1, 2, 3, 4];
+const doubled = numbers.map((num) => num * 2);
+console.log(doubled); // [2, 4, 6, 8]
+```
+
+✅ **Immutability with Spread Operator**
+
+```javascript
+const arr = [1, 2, 3];
+const newArr = [...arr, 4];
+console.log(newArr); // [1, 2, 3, 4]
+```
+
+✅ **Pure Functions & Avoiding Side Effects**
+
+```javascript
+const square = (n) => n * n;
+console.log(square(4)); // 16 (No side effects)
+```
+
+✅ **Function Composition**
+
+```javascript
+const greet = (name) => `Hello, ${name}`;
+const exclaim = (sentence) => `${sentence}!`;
+const excitedGreet = (name) => exclaim(greet(name));
+console.log(excitedGreet("Alice")); // "Hello, Alice!"
+```
+
+---
+
+## 🔹 Summary
+
+- JavaScript **supports** functional programming paradigms.
+- It allows **first-class and higher-order functions**.
+- Encourages **immutability, pure functions, and function composition**.
+- FP helps write **more modular, maintainable, and bug-free code**.
+
+Functional Programming is a powerful way to improve **code clarity, reusability, and maintainability** in JavaScript. 🚀
+
+---
+
 ## 32. What are Higher Order Functions?
 
 **Explanation:**
 
-- Functions that take other functions as arguments or return functions as their result.
+A **Higher-Order Function (HOF)** is a function that **takes another function as an argument or returns a function**. This allows for more flexible, reusable, and modular code.
 
-**Example:**
+---
+
+## 🔹 Why Use Higher-Order Functions?
+
+Higher-Order Functions make JavaScript code:
+
+- **More concise and readable**
+- **More reusable** (reduces code duplication)
+- **More modular** (better separation of concerns)
+- **Easier to debug and test**
+
+---
+
+## 🔹 Examples of Higher-Order Functions
+
+### 1️⃣ **Passing Functions as Arguments**
 
 ```javascript
-function higherOrder(fn) {
-  return function (x) {
-    return fn(x) * 2;
+function operateOnNumbers(a, b, operation) {
+  return operation(a, b);
+}
+
+function add(x, y) {
+  return x + y;
+}
+
+console.log(operateOnNumbers(5, 3, add)); // 8
+```
+
+Here, `operateOnNumbers` is a **higher-order function** because it takes another function (`add`) as an argument.
+
+---
+
+### 2️⃣ **Returning Functions from Functions**
+
+```javascript
+function createMultiplier(multiplier) {
+  return function (number) {
+    return number * multiplier;
   };
 }
+
+const double = createMultiplier(2);
+console.log(double(5)); // 10
 ```
+
+Here, `createMultiplier` is a **higher-order function** because it **returns a function**.
+
+---
+
+### 3️⃣ **Built-in Higher-Order Functions in JavaScript**
+
+JavaScript provides several built-in higher-order functions:
+
+#### **`map()` - Transforming Arrays**
+
+```javascript
+const numbers = [1, 2, 3, 4];
+const doubled = numbers.map((num) => num * 2);
+console.log(doubled); // [2, 4, 6, 8]
+```
+
+#### **`filter()` - Filtering Data**
+
+```javascript
+const numbers = [1, 2, 3, 4, 5, 6];
+const evens = numbers.filter((num) => num % 2 === 0);
+console.log(evens); // [2, 4, 6]
+```
+
+#### **`reduce()` - Accumulating Values**
+
+```javascript
+const numbers = [1, 2, 3, 4];
+const sum = numbers.reduce((acc, num) => acc + num, 0);
+console.log(sum); // 10
+```
+
+#### **`forEach()` - Iterating Over Arrays**
+
+```javascript
+const numbers = [1, 2, 3];
+numbers.forEach((num) => console.log(num * 2));
+// Output: 2, 4, 6
+```
+
+---
+
+## 🔹 Summary
+
+- **Higher-Order Functions** take or return other functions.
+- They improve **code reusability** and **modularity**.
+- JavaScript includes built-in HOFs like **`map`**, **`filter`**, **`reduce`**, and **`forEach`**.
+
+Mastering HOFs helps write **more efficient and cleaner** JavaScript code. 🚀
+
+---
 
 ## 33. Why are functions called First-class Objects?
 
 **Explanation:**
 
-- Functions in JavaScript can be assigned to variables, passed as arguments, and returned from other functions, like any other object.
+In JavaScript, **functions are first-class objects** (also known as **first-class citizens**). This means that functions can:
+
+✅ Be assigned to variables
+✅ Be passed as arguments to other functions
+✅ Be returned from functions
+✅ Have properties and methods just like objects
+
+This characteristic makes JavaScript a **powerful functional programming language**.
+
+---
+
+## 🔹 Why Are Functions First-Class Objects?
+
+### 1️⃣ **Assigning Functions to Variables**
+
+```javascript
+const greet = function (name) {
+  return `Hello, ${name}!`;
+};
+
+console.log(greet("Alice")); // "Hello, Alice!"
+```
+
+Here, `greet` is a function stored in a variable, just like any other object.
+
+---
+
+### 2️⃣ **Passing Functions as Arguments**
+
+```javascript
+function executeFunction(fn, value) {
+  return fn(value);
+}
+
+function square(x) {
+  return x * x;
+}
+
+console.log(executeFunction(square, 4)); // 16
+```
+
+Functions can be **passed as arguments** to other functions, making them highly reusable.
+
+---
+
+### 3️⃣ **Returning Functions from Functions**
+
+```javascript
+function multiplier(factor) {
+  return function (number) {
+    return number * factor;
+  };
+}
+
+const double = multiplier(2);
+console.log(double(5)); // 10
+```
+
+Functions can **return other functions**, allowing for powerful abstractions.
+
+---
+
+### 4️⃣ **Functions as Object Properties (Methods)**
+
+```javascript
+const person = {
+  name: "John",
+  sayHello: function () {
+    return `Hello, my name is ${this.name}`;
+  },
+};
+
+console.log(person.sayHello()); // "Hello, my name is John"
+```
+
+Functions can be **stored as properties inside objects**, making them methods.
+
+---
+
+### 5️⃣ **Functions Having Properties and Methods**
+
+```javascript
+function example() {}
+example.info = "This is a function property";
+console.log(example.info); // "This is a function property"
+```
+
+Since functions are objects, they can have **properties and methods** like other objects.
+
+---
+
+## 🔹 Summary
+
+- **Functions are first-class objects** in JavaScript.
+- They can be **assigned to variables, passed as arguments, and returned from functions**.
+- They **can have properties and methods** like other objects.
+- This feature enables **functional programming paradigms** such as Higher-Order Functions.
+
+Understanding first-class functions is essential for writing **flexible, modular, and reusable** JavaScript code! 🚀
+
+---
 
 ## 34. Implement the Array.prototype.map method by hand.
 
@@ -877,15 +1886,232 @@ Array.prototype.myReduce = function (callback, initialValue) {
 
 **Explanation:**
 
-- An array-like object available within functions that contains all the arguments passed to the function.
+The `arguments` object is a special, array-like object available inside **regular functions** (not arrow functions) that provides access to all arguments passed to the function.
+
+🔹 **Key Points:**
+
+- It is **not an actual array**, but it behaves similarly.
+- It is **available only inside functions**.
+- It allows accessing arguments dynamically.
+
+---
+
+## 🔹 Example Usage
+
+### 1️⃣ Accessing Function Arguments
+
+```javascript
+function showArguments() {
+  console.log(arguments);
+}
+
+showArguments(1, 2, 3);
+// Output: Arguments(3) [1, 2, 3]
+```
+
+The `arguments` object captures all parameters passed to the function.
+
+---
+
+### 2️⃣ Using `arguments.length`
+
+```javascript
+function countArgs() {
+  console.log("Number of arguments:", arguments.length);
+}
+
+countArgs(1, "hello", true);
+// Output: Number of arguments: 3
+```
+
+You can use `.length` to determine how many arguments were passed.
+
+---
+
+### 3️⃣ Iterating Over Arguments
+
+```javascript
+function sumAll() {
+  let sum = 0;
+  for (let i = 0; i < arguments.length; i++) {
+    sum += arguments[i];
+  }
+  return sum;
+}
+
+console.log(sumAll(1, 2, 3, 4)); // Output: 10
+```
+
+Even though `arguments` is not an array, it can be iterated over using a loop.
+
+---
+
+## 🔹 `arguments` is **Not Available in Arrow Functions**
+
+Arrow functions do not have their own `arguments` object.
+
+```javascript
+const showArgs = () => {
+  console.log(arguments); // ❌ Throws an error
+};
+
+showArgs(1, 2, 3);
+```
+
+If you need access to arguments in an arrow function, use **rest parameters (`...args`)** instead.
+
+```javascript
+const showArgs = (...args) => {
+  console.log(args); // ✅ [1, 2, 3]
+};
+
+showArgs(1, 2, 3);
+```
+
+---
+
+## 🔹 Converting `arguments` to an Array
+
+Since `arguments` is not a real array, you may need to convert it using `Array.from()` or the spread operator (`...`).
+
+```javascript
+function convertArgs() {
+  const argsArray = Array.from(arguments);
+  console.log(argsArray);
+}
+
+convertArgs(1, 2, 3); // Output: [1, 2, 3]
+```
+
+OR
+
+```javascript
+function convertArgs() {
+  const argsArray = [...arguments];
+  console.log(argsArray);
+}
+
+convertArgs(1, 2, 3); // Output: [1, 2, 3]
+```
+
+---
+
+## 🔹 Summary
+
+✅ The `arguments` object provides access to all function arguments.
+✅ It is **array-like**, but not an actual array.
+✅ It is **not available** in arrow functions.
+✅ Use `Array.from(arguments)` or `[...arguments]` to convert it to a real array.
+✅ Use **rest parameters (`...args`)** instead for modern JavaScript.
+
+Mastering `arguments` helps in writing **flexible** and **dynamic** functions! 🚀
+
+---
 
 ## 38. How to create an object without a prototype?
 
-**Implementation:**
+### 🔹 Why Create an Object Without a Prototype?
+
+By default, all JavaScript objects inherit properties and methods from `Object.prototype`. However, sometimes you may want to create a **pure object** without any inherited properties or prototype chain. This is useful when:
+
+- You want to avoid prototype pollution.
+- You need a truly **plain object** (e.g., for dictionary-like key-value storage).
+- You want to improve performance by preventing unnecessary prototype lookups.
+
+---
+
+## 🔹 Using `Object.create(null)`
+
+The recommended way to create an object **without a prototype** is by using `Object.create(null)`.
 
 ```javascript
 const obj = Object.create(null);
+
+console.log(obj); // {} (empty object without prototype)
+console.log(Object.getPrototypeOf(obj)); // null
+console.log(obj.toString); // undefined (since `toString` is from Object.prototype)
 ```
+
+✅ The `obj` does **not** inherit from `Object.prototype`, meaning it has **no built-in methods** like `toString()`, `hasOwnProperty()`, etc.
+
+---
+
+## 🔹 Key Differences: Normal Object vs. `Object.create(null)`
+
+```javascript
+const normalObj = {};
+const noProtoObj = Object.create(null);
+
+console.log(normalObj.toString); // [Function: toString]
+console.log(noProtoObj.toString); // undefined
+```
+
+| Feature             | `{}` (Normal Object)  | `Object.create(null)` |
+| ------------------- | --------------------- | --------------------- |
+| Prototype Exists?   | ✅ `Object.prototype` | ❌ No prototype       |
+| `toString()` method | ✅ Inherited          | ❌ Undefined          |
+| `hasOwnProperty()`  | ✅ Available          | ❌ Undefined          |
+
+---
+
+## 🔹 Common Use Cases
+
+### 1️⃣ Creating a Pure Key-Value Map (Safer Than `{}`)
+
+When using objects as **key-value stores**, a prototype-less object avoids accidental key conflicts with inherited properties.
+
+```javascript
+const data = Object.create(null);
+data.username = "Alice";
+data.age = 25;
+
+data.toString = "Oops!"; // No conflict with Object.prototype.toString
+
+console.log(data); // { username: 'Alice', age: 25, toString: 'Oops!' }
+```
+
+If you used `{}`, assigning `data.toString = "Oops!"` could cause issues since `toString` is a method in `Object.prototype`.
+
+---
+
+### 2️⃣ Preventing Prototype Pollution
+
+If an attacker injects prototype-related properties like `__proto__`, it could cause security issues in some cases. Using `Object.create(null)` prevents this.
+
+```javascript
+const safeObject = Object.create(null);
+safeObject.__proto__ = "Hacked!";
+
+console.log(safeObject.__proto__); // "Hacked!" (but does NOT affect prototype chain)
+console.log(Object.getPrototypeOf(safeObject)); // null (still safe)
+```
+
+---
+
+## 🔹 Alternative: `Object.setPrototypeOf`
+
+Another way (less common) is to manually set an object’s prototype to `null` after creation:
+
+```javascript
+const obj = {};
+Object.setPrototypeOf(obj, null);
+
+console.log(Object.getPrototypeOf(obj)); // null
+```
+
+⚠️ **Note:** `Object.create(null)` is preferred since it avoids unnecessary prototype creation in the first place.
+
+---
+
+## 🔹 Summary
+
+✅ `Object.create(null)` creates an object without a prototype.
+✅ Such objects **do not inherit** from `Object.prototype`.
+✅ Useful for **safe key-value stores** and **security** purposes.
+✅ Prevents issues like **prototype pollution**.
+✅ Unlike `{}`, these objects **lack built-in methods** (`toString`, `hasOwnProperty`, etc.).
+
+---
 
 ## 39. Why does `b` in this code become a global variable when you call this function?
 
@@ -903,20 +2129,281 @@ function test() {
 
 ## 40. What is ECMAScript?
 
-**Explanation:**
+ECMAScript (ES) is a **standardized** scripting language specification upon which **JavaScript** is based. It defines the core features, syntax, and behavior of JavaScript.
 
-- A scripting language specification on which JavaScript is based.
+🔹 **Key Points:**
 
-## 41. What are the new features in ES6 or ECMAScript 2015?
+- Created by **ECMA International** as **ECMA-262** standard.
+- Defines the rules for JavaScript execution.
+- New versions introduce updates and enhancements to the language.
 
-**Features:**
+---
 
-- `let` and `const`
-- Arrow functions
-- Template literals
-- Classes
-- Destructuring
-- Modules
+## 🔹 History of ECMAScript Versions
+
+Each ECMAScript version (ES) brings new features and improvements.
+
+| ECMAScript Version | Year | Key Features                                                          |
+| ------------------ | ---- | --------------------------------------------------------------------- |
+| **ES1**            | 1997 | First edition of ECMAScript                                           |
+| **ES3**            | 1999 | Regular Expressions, Try-Catch                                        |
+| **ES5**            | 2009 | `JSON.parse()`, `strict mode`, Array Methods (map, filter, reduce)    |
+| **ES6 (ES2015)**   | 2015 | `let`, `const`, Arrow Functions, Classes, Promises, Template Literals |
+| **ES7 (ES2016)**   | 2016 | `Array.includes()`, Exponentiation Operator (`**`)                    |
+| **ES8 (ES2017)**   | 2017 | `async/await`, `Object.values()`, `Object.entries()`                  |
+| **ES9 (ES2018)**   | 2018 | Rest/Spread Properties, `Promise.finally()`                           |
+| **ES10 (ES2019)**  | 2019 | `flat()`, `flatMap()`, `Object.fromEntries()`                         |
+| **ES11 (ES2020)**  | 2020 | Optional Chaining (`?.`), Nullish Coalescing (`??`), Dynamic Imports  |
+| **ES12 (ES2021)**  | 2021 | Logical Assignment, Numeric Separators (`_`), WeakRefs                |
+
+🔹 **Modern JavaScript follows ECMAScript standards to ensure compatibility across browsers and environments.**
+
+---
+
+## 🔹 Why is ECMAScript Important?
+
+1️⃣ **Standardization** → Ensures JavaScript works consistently across different platforms.
+2️⃣ **Feature Evolution** → Adds new functionalities to enhance performance & developer experience.
+3️⃣ **Compatibility** → Maintains backward compatibility with older versions.
+4️⃣ **Performance Improvements** → Introduces optimizations for faster execution.
+
+---
+
+## 🔹 How to Use Modern ECMAScript Features?
+
+Most **modern browsers** support the latest ECMAScript features. However, for older browsers, you can use **transpilers** like Babel to convert ES6+ code into ES5 for compatibility.
+
+```javascript
+// Example: Using ES6+ features
+const greet = (name) => `Hello, ${name}!`;
+console.log(greet("Alice"));
+```
+
+---
+
+## 🔹 Summary
+
+✅ **ECMAScript** is the foundation of JavaScript.
+✅ New versions introduce **better syntax, performance, and features**.
+✅ **ES6 (2015)** was a major update with `let`, `const`, Arrow Functions, and more.
+✅ Modern browsers support **most ECMAScript features**, but transpilers like **Babel** ensure backward compatibility.
+
+Staying up to date with ECMAScript helps developers write **efficient**, **modern**, and **scalable** JavaScript! 🚀
+
+---
+
+## 41. What are the new features in ES6 or ECMAScript 2015 till 2025?
+
+## 🔹 ECMAScript 2015 (ES6)
+
+### 1️⃣ **Let & Const** (Block-scoped variables)
+
+```javascript
+let a = 10;
+const b = 20;
+```
+
+### 2️⃣ **Arrow Functions**
+
+```javascript
+const add = (x, y) => x + y;
+console.log(add(2, 3)); // 5
+```
+
+### 3️⃣ **Template Literals**
+
+```javascript
+const name = "Alice";
+console.log(`Hello, ${name}!`); // Hello, Alice!
+```
+
+### 4️⃣ **Destructuring**
+
+```javascript
+const obj = { x: 10, y: 20 };
+const { x, y } = obj;
+console.log(x, y); // 10 20
+```
+
+### 5️⃣ **Spread & Rest Operators**
+
+```javascript
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1, 4, 5];
+console.log(arr2); // [1, 2, 3, 4, 5]
+```
+
+---
+
+## 🔹 ECMAScript 2016 (ES7)
+
+### 1️⃣ **Array.prototype.includes()**
+
+```javascript
+console.log([1, 2, 3].includes(2)); // true
+```
+
+### 2️⃣ **Exponentiation Operator (`**`)\*\*
+
+```javascript
+console.log(2 ** 3); // 8
+```
+
+---
+
+## 🔹 ECMAScript 2017 (ES8)
+
+### 1️⃣ **Async/Await**
+
+```javascript
+async function fetchData() {
+  return await Promise.resolve("Data loaded");
+}
+fetchData().then(console.log); // Data loaded
+```
+
+### 2️⃣ **Object.values() & Object.entries()**
+
+```javascript
+const obj = { a: 1, b: 2 };
+console.log(Object.values(obj)); // [1, 2]
+console.log(Object.entries(obj)); // [['a', 1], ['b', 2]]
+```
+
+---
+
+## 🔹 ECMAScript 2018 (ES9)
+
+### 1️⃣ **Rest/Spread with Objects**
+
+```javascript
+const person = { name: "John", age: 25 };
+const { age, ...rest } = person;
+console.log(rest); // { name: 'John' }
+```
+
+### 2️⃣ **Promise.prototype.finally()**
+
+```javascript
+fetch("https://api.example.com")
+  .then((response) => console.log(response))
+  .finally(() => console.log("Done"));
+```
+
+---
+
+## 🔹 ECMAScript 2019 (ES10)
+
+### 1️⃣ **Array.flat()**
+
+```javascript
+console.log([1, [2, [3]]].flat(2)); // [1, 2, 3]
+```
+
+### 2️⃣ **Object.fromEntries()**
+
+```javascript
+const entries = [
+  ["name", "Alice"],
+  ["age", 30],
+];
+console.log(Object.fromEntries(entries)); // { name: 'Alice', age: 30 }
+```
+
+---
+
+## 🔹 ECMAScript 2020 (ES11)
+
+### 1️⃣ **Optional Chaining (`?.`)**
+
+```javascript
+const user = {};
+console.log(user?.address?.city); // undefined
+```
+
+### 2️⃣ **Nullish Coalescing (`??`)**
+
+```javascript
+const value = null ?? "default";
+console.log(value); // default
+```
+
+---
+
+## 🔹 ECMAScript 2021 (ES12)
+
+### 1️⃣ **String.replaceAll()**
+
+```javascript
+console.log("Hello Hello".replaceAll("Hello", "Hi")); // Hi Hi
+```
+
+### 2️⃣ **Promise.any()**
+
+```javascript
+Promise.any([Promise.reject("Error"), Promise.resolve("Success")]).then(
+  console.log
+); // Success
+```
+
+---
+
+## 🔹 ECMAScript 2022 (ES13)
+
+### 1️⃣ **Class Fields & Static Initialization Blocks**
+
+```javascript
+class Person {
+  name = "John";
+  static role = "Admin";
+}
+console.log(new Person().name, Person.role);
+```
+
+### 2️⃣ **Error Cause (`cause` property)**
+
+```javascript
+try {
+  throw new Error("Something went wrong", { cause: "Network issue" });
+} catch (e) {
+  console.log(e.cause); // Network issue
+}
+```
+
+---
+
+## 🔹 ECMAScript 2023 (ES14)
+
+### 1️⃣ **Array.findLast() & Array.findLastIndex()**
+
+```javascript
+console.log([1, 2, 3, 4].findLast((n) => n % 2 === 0)); // 4
+```
+
+### 2️⃣ **Symbol.prototype.description**
+
+```javascript
+const sym = Symbol("desc");
+console.log(sym.description); // desc
+```
+
+---
+
+## 🔹 ECMAScript 2024 (ES15) & ECMAScript 2025 (ES16)
+
+🚀 **Expected Features**:
+1️⃣ **Immutable Arrays**: Prevent modifications to arrays.
+2️⃣ **Pipeline Operator (`|>`):** Enables function composition.
+3️⃣ **New Type Annotations**: Support for static type checking.
+4️⃣ **New JSON.parse() Improvements**: Enhanced parsing performance.
+
+---
+
+## ✅ Summary
+
+JavaScript continues to evolve with new features every year, making it more powerful and developer-friendly!
+
+---
 
 ## 42. What's the difference between `var`, `let` and `const` keywords?
 
@@ -926,6 +2413,120 @@ function test() {
 - `let`: Block-scoped, not hoisted.
 - `const`: Block-scoped, immutable references.
 
+JavaScript provides three ways to declare variables: `var`, `let`, and `const`. Understanding their differences is essential for writing clean and predictable code.
+
+---
+
+## 1️⃣ **`var` - Function Scoped Variable**
+
+### ✅ Features:
+
+✔️ Function-scoped (NOT block-scoped).<br>
+✔️ Can be **redeclared** and **reassigned**.<br>
+✔️ Gets **hoisted** but initialized with `undefined`.<br>
+✔️ Can be accessed before declaration (due to hoisting).
+
+### ⚡ Example:
+
+```javascript
+console.log(x); // undefined (Hoisting)
+var x = 10;
+console.log(x); // 10
+
+var x = 20; // Redeclaration allowed
+console.log(x); // 20
+```
+
+### 🚨 Problem with `var`:
+
+```javascript
+if (true) {
+  var y = 50;
+}
+console.log(y); // 50 (Leaked outside block!)
+```
+
+Since `var` is function-scoped, it **ignores block scope**, leading to potential bugs.
+
+---
+
+## 2️⃣ **`let` - Block Scoped Variable**
+
+### ✅ Features:
+
+✔️ **Block-scoped** (confined to `{}` blocks).<br>
+✔️ Can be **reassigned**, but **not redeclared** in the same scope.<br>
+✔️ Gets **hoisted**, but not initialized (ReferenceError if accessed before declaration).
+
+### ⚡ Example:
+
+```javascript
+if (true) {
+  let a = 30;
+  console.log(a); // 30
+}
+console.log(a); // ❌ ReferenceError (block-scoped)
+```
+
+### 🚨 Error on Redeclaration:
+
+```javascript
+let b = 100;
+let b = 200; // ❌ SyntaxError: Identifier 'b' has already been declared
+```
+
+---
+
+## 3️⃣ **`const` - Block Scoped, Immutable Reference**
+
+### ✅ Features:
+
+✔️ **Block-scoped** (like `let`).<br>
+✔️ **Cannot be reassigned** (immutable reference, but object properties are mutable).<br>
+✔️ Must be **initialized** at the time of declaration.<br>
+✔️ Hoisted, but not initialized.
+
+### ⚡ Example:
+
+```javascript
+const PI = 3.14;
+PI = 3.1415; // ❌ TypeError: Assignment to constant variable
+```
+
+### 🚨 Object Mutation Allowed:
+
+```javascript
+const obj = { name: "John" };
+obj.name = "Doe"; // ✅ Allowed!
+console.log(obj.name); // "Doe"
+```
+
+While `const` prevents reassignment, **object properties can still be modified**.
+
+---
+
+## 🔹 Key Differences: Summary Table
+
+| Feature         | `var`                               | `let`                        | `const`                      |
+| --------------- | ----------------------------------- | ---------------------------- | ---------------------------- |
+| Scope           | Function                            | Block                        | Block                        |
+| Hoisting        | ✅ Yes (initialized to `undefined`) | ✅ Yes (but not initialized) | ✅ Yes (but not initialized) |
+| Redeclaration   | ✅ Yes                              | ❌ No                        | ❌ No                        |
+| Reassignment    | ✅ Yes                              | ✅ Yes                       | ❌ No                        |
+| Must Initialize | ❌ No                               | ❌ No                        | ✅ Yes                       |
+
+---
+
+## 🔹 Best Practices
+
+✔️ **Use `const` by default**. <br>
+✔️ **Use `let` if reassignment is needed**. <br>
+✔️ **Avoid `var` to prevent scoping issues**.
+
+By following these best practices, you ensure more predictable and bug-free JavaScript code! 🚀
+
+---
+
 ## 43. What are Arrow functions?
 
 **Explanation:**
@@ -933,21 +2534,340 @@ function test() {
 - Concise syntax for writing functions.
 - Does not have its own `this`.
 
-## 44. What are Classes?
+Arrow functions are a concise syntax for writing functions in JavaScript, introduced in **ES6**. They provide a more readable and shorter way to define functions compared to the traditional `function` keyword.
 
-**Explanation:**
+### Syntax:
 
-- Syntactical sugar over JavaScript’s prototype-based inheritance.
+```javascript
+const functionName = (param1, param2) => {
+  // Function body
+};
+```
 
-**Example:**
+---
+
+## 🔹 Key Features of Arrow Functions
+
+### 1️⃣ **Shorter Syntax**
+
+```javascript
+// Traditional function
+function add(a, b) {
+  return a + b;
+}
+console.log(add(2, 3)); // 5
+
+// Arrow function
+const addArrow = (a, b) => a + b;
+console.log(addArrow(2, 3)); // 5
+```
+
+💡 **If there is only one expression, the `return` keyword can be omitted.**
+
+---
+
+### 2️⃣ **Implicit Return**
+
+If an arrow function has only **one statement**, it implicitly returns the result without using `return`.
+
+```javascript
+const square = (x) => x * x;
+console.log(square(4)); // 16
+```
+
+---
+
+### 3️⃣ **Lexical `this` Binding**
+
+Unlike traditional functions, arrow functions **do not have their own `this` value**. Instead, they inherit `this` from the surrounding lexical scope.
+
+#### Example: `this` in Regular Function vs Arrow Function
+
+```javascript
+const obj = {
+  value: 10,
+  traditionalFunc: function () {
+    console.log(this.value); // 10
+  },
+  arrowFunc: () => {
+    console.log(this.value); // undefined (inherits `this` from global scope)
+  },
+};
+
+obj.traditionalFunc(); // 10
+obj.arrowFunc(); // undefined
+```
+
+💡 **Arrow functions inherit `this` from their enclosing scope. They are great for maintaining `this` inside callbacks.**
+
+---
+
+### 4️⃣ **No `arguments` Object**
+
+Arrow functions **do not have their own `arguments` object**.
+
+```javascript
+function traditional() {
+  console.log(arguments); // Works: Arguments(3) [1, 2, 3]
+}
+
+const arrow = () => {
+  console.log(arguments); // ❌ Error: arguments is not defined
+};
+
+traditional(1, 2, 3);
+arrow(1, 2, 3);
+```
+
+💡 **Use rest parameters (`...args`) instead in arrow functions:**
+
+```javascript
+const arrow = (...args) => {
+  console.log(args); // ✅ [1, 2, 3]
+};
+arrow(1, 2, 3);
+```
+
+---
+
+### 5️⃣ **Cannot Be Used as Constructors**
+
+Arrow functions **cannot** be used with `new` because they do not have their own `this`.
+
+```javascript
+const Person = (name) => {
+  this.name = name; // ❌ Error: Arrow functions don’t have their own `this`
+};
+const p = new Person("John"); // TypeError
+```
+
+💡 **Use regular functions for constructor functions.**
+
+---
+
+### 6️⃣ **Cannot Use `bind`, `call`, or `apply` to Change `this`**
+
+Arrow functions always take `this` from their surrounding context, so methods like `bind`, `call`, and `apply` **have no effect**.
+
+```javascript
+const obj = {
+  num: 42,
+  arrowFunc: () => console.log(this.num),
+};
+
+const newObj = { num: 100 };
+obj.arrowFunc.call(newObj); // undefined (ignores `call`)
+```
+
+💡 **Use regular functions when you need explicit control over `this`.**
+
+---
+
+## 🔹 When to Use Arrow Functions?
+
+✅ Best for **short** functions
+✅ Great for **callbacks** and **array methods**
+✅ Useful for maintaining **lexical `this`** in class methods or closures
+❌ **Not** suitable for methods in objects (because of `this` behavior)
+❌ **Not** suitable for constructor functions
+
+---
+
+## 🔹 Summary
+
+✅ Arrow functions provide a **shorter syntax** for defining functions.
+✅ They have **implicit return** when using a single expression.
+✅ They **inherit `this`** from their lexical scope (they don’t have their own `this`).
+✅ They **do not have `arguments`**, `prototype`, or `new`.
+✅ **Best used** for callbacks, array methods, and concise function definitions.
+
+---
+
+## 44. What are Classes and Constructors?
+
+## What are Classes in JavaScript?
+
+Classes in JavaScript are a blueprint for creating objects. They allow you to define object properties and behaviors in a structured way. JavaScript classes were introduced in **ES6** to provide a more structured and OOP-like syntax over the traditional prototype-based inheritance.
+
+### Syntax of a Class
 
 ```javascript
 class Person {
-  constructor(name) {
+  constructor(name, age) {
     this.name = name;
+    this.age = age;
+  }
+
+  greet() {
+    console.log(
+      `Hello, my name is ${this.name} and I am ${this.age} years old.`
+    );
   }
 }
+
+const person1 = new Person("Alice", 30);
+person1.greet(); // Output: Hello, my name is Alice and I am 30 years old.
 ```
+
+## Understanding Constructors
+
+The `constructor` method is a special method in a class that gets executed when an object is instantiated from the class using the `new` keyword.
+
+### Key Points:
+
+- The `constructor` initializes the object's properties.
+- You can pass arguments to the constructor when creating an object.
+- If no `constructor` is defined, JavaScript provides a default empty constructor.
+
+## Class Inheritance
+
+JavaScript allows classes to inherit properties and methods from another class using the `extends` keyword.
+
+```javascript
+class Employee extends Person {
+  constructor(name, age, jobTitle) {
+    super(name, age); // Calls the constructor of the parent class
+    this.jobTitle = jobTitle;
+  }
+
+  work() {
+    console.log(`${this.name} works as a ${this.jobTitle}.`);
+  }
+}
+
+const emp1 = new Employee("Bob", 25, "Software Engineer");
+emp1.greet(); // Inherited method from Person
+emp1.work(); // Output: Bob works as a Software Engineer.
+```
+
+## Prototypes and Performance Considerations
+
+Under the hood, JavaScript classes use **prototypes**. When you define a method inside a class, it is added to the class's prototype, ensuring that all instances share the same method reference instead of duplicating it in memory.
+
+```javascript
+console.log(Object.getPrototypeOf(emp1) === Employee.prototype); // true
+```
+
+Methods defined inside the `constructor` are re-created for each instance, which can lead to performance inefficiencies.
+
+```javascript
+class BadPractice {
+  constructor() {
+    this.sayHello = function () {
+      console.log("Hello");
+    };
+  }
+}
+
+const obj1 = new BadPractice();
+const obj2 = new BadPractice();
+console.log(obj1.sayHello === obj2.sayHello); // false (bad practice)
+```
+
+## Static Methods
+
+Static methods are defined using the `static` keyword and are called on the class itself, not on instances of the class.
+
+```javascript
+class MathHelper {
+  static add(a, b) {
+    return a + b;
+  }
+}
+
+console.log(MathHelper.add(5, 3)); // Output: 8
+```
+
+## Private Fields and Methods
+
+JavaScript now supports private fields and methods using the `#` symbol. These cannot be accessed outside the class.
+
+```javascript
+class BankAccount {
+  #balance; // Private property
+
+  constructor(owner, balance) {
+    this.owner = owner;
+    this.#balance = balance;
+  }
+
+  deposit(amount) {
+    this.#balance += amount;
+    console.log(`Deposited ${amount}. New balance: ${this.#balance}`);
+  }
+}
+
+const account = new BankAccount("John", 1000);
+account.deposit(500);
+// account.#balance; // ❌ Error: Private field cannot be accessed
+```
+
+## Getters and Setters
+
+You can define getter and setter methods to control access to properties.
+
+```javascript
+class User {
+  constructor(name) {
+    this._name = name;
+  }
+
+  get name() {
+    return this._name.toUpperCase();
+  }
+
+  set name(newName) {
+    if (newName.length > 0) {
+      this._name = newName;
+    } else {
+      console.log("Name cannot be empty!");
+    }
+  }
+}
+
+const user1 = new User("Charlie");
+console.log(user1.name); // Output: CHARLIE
+user1.name = "David";
+console.log(user1.name); // Output: DAVID
+```
+
+## Mixins: Extending Functionality Without Inheritance
+
+Sometimes, you want to add functionality to multiple classes without using class inheritance. **Mixins** allow you to do this by copying methods into a class prototype.
+
+```javascript
+let sayHiMixin = {
+  sayHi() {
+    console.log(`Hi, my name is ${this.name}`);
+  },
+};
+
+Object.assign(Person.prototype, sayHiMixin);
+
+const person2 = new Person("Eve", 40);
+person2.sayHi(); // Output: Hi, my name is Eve
+```
+
+## Real-world Use Cases
+
+- **React Components**: Modern JavaScript frameworks like React heavily use classes for component-based development.
+- **Data Models**: Classes help organize and model complex data structures in applications.
+- **Encapsulation & Security**: Private fields ensure data security and encapsulation within an application.
+
+## Summary
+
+- **Classes** provide a structured way to define objects in JavaScript.
+- **Constructors** initialize object properties when a new instance is created.
+- **Inheritance** allows one class to extend another, reusing properties and methods.
+- **Prototype-based methods** improve memory efficiency.
+- **Static methods** belong to the class, not instances.
+- **Private fields and methods** (`#`) restrict access within the class.
+- **Getters and Setters** provide controlled access to object properties.
+- **Mixins** help in reusing methods across multiple classes.
+
+JavaScript classes enhance code readability and maintainability, making object-oriented programming easier and more powerful.
+
+---
 
 ## 45. What are Template Literals?
 
