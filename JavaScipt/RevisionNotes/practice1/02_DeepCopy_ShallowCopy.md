@@ -52,7 +52,7 @@ function question1() {
   const arr2 = [...arr1]; // with spred operator
   arr2.push(10);
   console.log("Arr2 is ", arr2); // Arr2 is  [ 1, 2, 3, 4, 10 ]
-  console.log("Arr1 is ", arr1); // Arr1 is  [ 1, 2, 3, 4, 10 ]
+  console.log("Arr1 is ", arr1); // Arr1 is  [ 1, 2, 3, 4 ]
 }
 ```
 
@@ -68,8 +68,8 @@ function question2() {
   // const user2 = { ...user1 }; // spred operator is successor of the Object.assign
   const user2 = Object.assign({}, user1);
   user2.name = "def";
-  console.log(user2);
-  console.log(user1);
+  console.log(user2); //{ name: 'def', age: 20 }
+  console.log(user1); // { name: 'abc', age: 20 }
 }
 question2();
 ```

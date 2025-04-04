@@ -1,6 +1,6 @@
 // Currying.
 
-// this can be cone by using bind and closures
+// this can be done by using bind and closures
 
 // let multyply = function (x, y) {
 //   console.log(x * y);

@@ -74,6 +74,13 @@ Person.prototype.sayHello = function () {
   console.log(`Hello, my name is ${this.name}`);
 };
 
+const person1 = new Person("Ram", 20);
+// console.log(person1.prototype);
+console.log(person1.prototype); // undefined ❌ (instances do not have a `prototype`)
+console.log(person1.__proto__); // Person.prototype ✅
+console.log(person1.__proto__.sayHello); // function sayHello ✅
+console.log(person1.__proto__.__proto__); // Object.prototype ✅
+
 function Developer(name, age, language) {
   Person.call(this, name, age);
   this.language = language;

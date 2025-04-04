@@ -2867,58 +2867,628 @@ person2.sayHi(); // Output: Hi, my name is Eve
 
 JavaScript classes enhance code readability and maintainability, making object-oriented programming easier and more powerful.
 
+<!-- TODO: class - privet, public, static etc -->
+
+DIff b/w normal function and constructor function
+
+Check OBJ properties like, freez
+
 ---
 
 ## 45. What are Template Literals?
 
 **Explanation:**
+Template literals are a feature in JavaScript introduced in **ES6 (ECMAScript 2015)** that provide an improved way to handle strings. They allow embedding expressions, multiline strings, and easier string concatenation compared to traditional string methods.
 
-- String literals allowing embedded expressions and multiline strings.
+Template literals use **backticks (` `)** instead of single (`'`) or double (`"`) quotes.
 
-**Example:**
+## Basic Syntax
 
 ```javascript
-const name = "John";
-console.log(`Hello, ${name}!`);
+const name = "Alice";
+const greeting = `Hello, ${name}!`;
+console.log(greeting); // Output: Hello, Alice!
 ```
+
+## Features of Template Literals
+
+### 1. **String Interpolation** (Embedding Expressions)
+
+Template literals support embedding JavaScript expressions inside `${}`.
+
+```javascript
+const a = 10;
+const b = 20;
+console.log(`The sum of ${a} and ${b} is ${a + b}`);
+// Output: The sum of 10 and 20 is 30
+```
+
+### 2. **Multiline Strings**
+
+Unlike traditional strings, template literals allow multiline strings without needing `\n` or concatenation.
+
+```javascript
+const multiLineString = `This is a multiline
+string using template literals.`;
+console.log(multiLineString);
+/* Output:
+This is a multiline
+string using template literals.
+*/
+```
+
+### 3. **Tagged Templates**
+
+Tagged templates allow parsing template literals with custom functions.
+
+```javascript
+function highlight(strings, ...values) {
+  return strings.reduce(
+    (acc, str, index) =>
+      acc + str + (values[index] ? `**${values[index]}**` : ""),
+    ""
+  );
+}
+
+const user = "John";
+const age = 25;
+const message = highlight`User: ${user}, Age: ${age}`;
+console.log(message);
+// Output: User: **John**, Age: **25**
+```
+
+### 4. **Expression Evaluation**
+
+You can perform calculations or invoke functions inside template literals.
+
+```javascript
+const price = 100;
+const discount = 10;
+const finalPrice = `Final Price: $${price - discount}`;
+console.log(finalPrice); // Output: Final Price: $90
+```
+
+### 5. **Using Template Literals for HTML Templates**
+
+Template literals are useful in dynamically generating HTML strings.
+
+```javascript
+const title = "Welcome";
+const html = `
+    <h1>${title}</h1>
+    <p>This is a dynamic paragraph.</p>
+`;
+console.log(html);
+```
+
+## Benefits of Template Literals
+
+- **Improves Readability**: No need for concatenation (`+`) for embedding variables.
+- **Easier Multiline Handling**: Readable and maintainable multiline strings.
+- **Better Expression Handling**: Directly embed expressions and function calls.
+- **Powerful String Manipulation**: Tagged templates allow advanced parsing and transformations.
+
+## Conclusion
+
+Template literals simplify string manipulation in JavaScript, making code more readable and maintainable. They are widely used in modern JavaScript applications, including UI frameworks like React and template-based rendering.
 
 ## 46. What is Object Destructuring?
 
 **Explanation:**
+Object destructuring is a convenient way to extract multiple properties from an object and assign them to variables in a single statement. It helps in writing cleaner and more readable code by avoiding repetitive object property references.
 
-- Extracts properties from objects into variables.
-
-**Example:**
+## Basic Syntax
 
 ```javascript
-const obj = { a: 1, b: 2 };
-const { a, b } = obj;
+const person = {
+  name: "John",
+  age: 30,
+  city: "New York",
+};
+
+const { name, age, city } = person;
+
+console.log(name); // Output: John
+console.log(age); // Output: 30
+console.log(city); // Output: New York
 ```
+
+## Using Default Values
+
+If a property does not exist in the object, you can set a default value.
+
+```javascript
+const person = { name: "Alice", age: 25 };
+const { name, age, city = "Unknown" } = person;
+
+console.log(city); // Output: Unknown
+```
+
+## Renaming Variables
+
+You can rename variables while destructuring.
+
+```javascript
+const user = { id: 101, username: "devAlice" };
+const { username: userName } = user;
+
+console.log(userName); // Output: devAlice
+```
+
+## Nested Object Destructuring
+
+If an object has nested properties, you can destructure them as well.
+
+```javascript
+const employee = {
+  name: "Bob",
+  address: {
+    city: "Los Angeles",
+    zip: "90001",
+  },
+};
+
+const {
+  name,
+  address: { city, zip },
+} = employee;
+console.log(city); // Output: Los Angeles
+```
+
+## Destructuring in Function Parameters
+
+You can use destructuring in function parameters to extract specific values from an object argument.
+
+```javascript
+function displayUser({ name, age }) {
+  console.log(`${name} is ${age} years old.`);
+}
+
+const user = { name: "Charlie", age: 28 };
+displayUser(user); // Output: Charlie is 28 years old.
+```
+
+## Rest Operator with Destructuring
+
+The rest operator (`...`) can be used to collect remaining properties into a new object.
+
+```javascript
+const car = { brand: "Toyota", model: "Camry", year: 2022, color: "Blue" };
+const { brand, model, ...rest } = car;
+
+console.log(rest); // Output: { year: 2022, color: "Blue" }
+```
+
+## Summary
+
+- Object destructuring simplifies the process of extracting values from objects.
+- Default values can be assigned if a property is missing.
+- Properties can be renamed while destructuring.
+- Nested properties can be accessed directly.
+- Function parameters can be destructured for easier argument handling.
+- The rest operator helps in collecting remaining properties.
+
+Object destructuring is a powerful feature in JavaScript that improves code readability and efficiency.
 
 ## 47. What are ES6 Modules?
 
 **Explanation:**
+ES6 Modules (ECMAScript 2015) allow JavaScript to be split into reusable files. This modular approach makes it easier to maintain and organize code, preventing global scope pollution.
 
-- JavaScript’s standardized module system using `import` and `export`.
+### Key Features of ES6 Modules:
 
-## 48. What is the Set object and how does it work?
+1. **Encapsulation**: Variables and functions inside a module are not accessible outside unless explicitly exported.
+2. **Reusability**: Code can be shared across multiple files.
+3. **Lazy Loading**: Modules are loaded only when needed, improving performance.
+4. **Strict Mode by Default**: ES6 modules automatically use `"use strict"`.
+5. **Static Structure**: Imports and exports are resolved at compile-time.
+
+## Exporting from a Module
+
+To share code between modules, we use the `export` keyword.
+
+### Named Export
+
+Named exports allow multiple exports per file.
+
+```javascript
+// mathUtils.js
+export const add = (a, b) => a + b;
+export const multiply = (a, b) => a * b;
+```
+
+Importing named exports:
+
+```javascript
+// main.js
+import { add, multiply } from "./mathUtils.js";
+console.log(add(2, 3)); // 5
+console.log(multiply(2, 3)); // 6
+```
+
+### Default Export
+
+Each module can have only one default export.
+
+```javascript
+// greeting.js
+export default function greet(name) {
+  return `Hello, ${name}!`;
+}
+```
+
+Importing a default export:
+
+```javascript
+// main.js
+import greet from "./greeting.js";
+console.log(greet("Alice")); // Hello, Alice!
+```
+
+## Importing Everything from a Module
+
+```javascript
+import * as math from "./mathUtils.js";
+console.log(math.add(4, 5)); // 9
+console.log(math.multiply(4, 5)); // 20
+```
+
+## Dynamic Imports (Lazy Loading)
+
+Dynamic imports use `import()` to load modules asynchronously.
+
+```javascript
+import("./mathUtils.js").then((module) => {
+  console.log(module.add(3, 4));
+});
+```
+
+## Module Caching
+
+Once a module is imported, it is cached and subsequent imports reuse the cached version.
+
+### Differences Between ES6 Modules and CommonJS
+
+| Feature         | ES6 Modules              | CommonJS (Node.js)       |
+| --------------- | ------------------------ | ------------------------ |
+| Syntax          | `import/export`          | `require/module.exports` |
+| Execution       | Statically analyzed      | Dynamically executed     |
+| Scope           | File-based               | Module-based             |
+| `this` Behavior | `undefined` in top-level | `module.exports`         |
+
+### Conclusion
+
+ES6 modules help in structuring large applications by providing a clean, maintainable, and efficient way to manage dependencies. They are widely used in modern JavaScript development, including React, Vue, and other frameworks.
+
+## 48. What is the Set object, Map, weak map and how does it work?
 
 **Explanation:**
 
-- A collection of unique values.
+# Set, Map, and WeakMap in JavaScript
 
-**Example:**
+## 1. Set Object
+
+### What is a Set?
+
+A `Set` is a built-in JavaScript object that stores **unique values** of any type. It does not allow duplicate values.
+
+### Creating a Set
 
 ```javascript
-const set = new Set([1, 2, 2]);
-console.log(set); // Output: Set(2) { 1, 2 }
+const mySet = new Set();
+mySet.add(1);
+mySet.add(2);
+mySet.add(2); // Duplicate, will be ignored
+mySet.add("Hello");
+mySet.add({ name: "John" });
+console.log(mySet); // Output: Set { 1, 2, 'Hello', { name: 'John' } }
 ```
+
+### Key Features
+
+- Stores unique values (no duplicates allowed)
+- Can hold any data type
+- Iterates in insertion order
+
+### Common Methods
+
+| Method          | Description                     |
+| --------------- | ------------------------------- |
+| `add(value)`    | Adds a new value to the Set     |
+| `delete(value)` | Removes a value from the Set    |
+| `has(value)`    | Checks if a value exists        |
+| `clear()`       | Removes all values from the Set |
+| `size`          | Returns the number of elements  |
+
+### Iterating a Set
+
+```javascript
+const numbers = new Set([10, 20, 30, 40]);
+
+// Using forEach
+numbers.forEach((value) => console.log(value));
+
+// Using for..of
+for (let value of numbers) {
+  console.log(value);
+}
+```
+
+---
+
+## 2. Map Object
+
+### What is a Map?
+
+A `Map` is a collection of **key-value pairs**, where keys can be of any data type.
+
+### Creating a Map
+
+```javascript
+const myMap = new Map();
+myMap.set("name", "Alice");
+myMap.set(1, "Number One");
+myMap.set(true, "Boolean True");
+console.log(myMap);
+```
+
+### Key Features
+
+- Maintains key-value pairs
+- Keys can be any data type (objects, arrays, functions, etc.)
+- Preserves insertion order
+
+### Common Methods
+
+| Method            | Description                                 |
+| ----------------- | ------------------------------------------- |
+| `set(key, value)` | Adds a key-value pair to the Map            |
+| `get(key)`        | Retrieves the value associated with the key |
+| `has(key)`        | Checks if a key exists                      |
+| `delete(key)`     | Removes a key-value pair                    |
+| `clear()`         | Removes all key-value pairs                 |
+| `size`            | Returns the number of key-value pairs       |
+
+### Iterating a Map
+
+```javascript
+const users = new Map([
+  [1, "John"],
+  [2, "Alice"],
+  [3, "Bob"],
+]);
+
+// Loop through keys and values
+for (let [key, value] of users) {
+  console.log(`${key} -> ${value}`);
+}
+
+// Using forEach
+users.forEach((value, key) => {
+  console.log(key, value);
+});
+```
+
+---
+
+## 3. WeakMap
+
+### What is a WeakMap?
+
+A `WeakMap` is similar to a `Map`, but with **weakly held keys**, meaning:
+
+- Keys must be **objects** (not primitive values)
+- Entries are **garbage collected** when keys become unreachable
+- Does not have `size`, `clear()`, or iterable methods
+
+### Creating a WeakMap
+
+```javascript
+const weakMap = new WeakMap();
+let obj = { id: 1 };
+weakMap.set(obj, "User Data");
+console.log(weakMap.get(obj)); // Output: User Data
+
+obj = null; // The entry is removed automatically
+```
+
+### Key Features
+
+- Keys must be objects
+- Does not prevent garbage collection
+- No iteration methods (`forEach`, `keys()`, `values()`, etc.)
+
+### Common Methods
+
+| Method            | Description                         |
+| ----------------- | ----------------------------------- |
+| `set(key, value)` | Adds a key-value pair               |
+| `get(key)`        | Retrieves value associated with key |
+| `has(key)`        | Checks if a key exists              |
+| `delete(key)`     | Removes a key-value pair            |
+
+---
+
+## Differences Between Set, Map, and WeakMap
+
+| Feature            | Set    | Map                       | WeakMap      |
+| ------------------ | ------ | ------------------------- | ------------ |
+| Key Type           | N/A    | Any                       | Objects only |
+| Value Uniqueness   | Unique | Can have duplicate values | N/A          |
+| Iteration          | Yes    | Yes                       | No           |
+| Garbage Collection | No     | No                        | Yes          |
+| `size` property    | Yes    | Yes                       | No           |
+
+---
+
+## When to Use Set, Map, and WeakMap
+
+- **Use `Set`** when you need a collection of unique values.
+- **Use `Map`** when you need key-value storage with any key type.
+- **Use `WeakMap`** when you need key-value storage with automatic garbage collection.
+
+---
+
+### Conclusion
+
+JavaScript provides `Set`, `Map`, and `WeakMap` to manage collections effectively. `Set` ensures uniqueness, `Map` allows flexible key-value storage, and `WeakMap` provides efficient memory management. Understanding their differences helps in writing efficient JavaScript code.
 
 ## 49. What is a Callback function?
 
 **Explanation:**
+A **callback function** is a function that is passed as an argument to another function and is executed later, usually after some operation has been completed. This allows asynchronous execution and enables JavaScript to handle tasks like event handling, API calls, and timers efficiently.
 
-- A function passed as an argument to another function.
+### Example of a Basic Callback Function
+
+```javascript
+function greet(name, callback) {
+  console.log("Hello, " + name);
+  callback();
+}
+
+function sayGoodbye() {
+  console.log("Goodbye!");
+}
+
+greet("Alice", sayGoodbye);
+// Output:
+// Hello, Alice
+// Goodbye!
+```
+
+## Why Use Callback Functions?
+
+- **Asynchronous Execution**: They help execute code after an operation (like fetching data or reading a file) completes.
+- **Code Reusability**: Functions can be reused and passed around as arguments.
+- **Event Handling**: Callbacks are extensively used in event-driven programming.
+- **Avoiding Blocking Code**: JavaScript is single-threaded, and callbacks help in handling tasks without blocking execution.
+
+## Callback Functions in Asynchronous JavaScript
+
+Callbacks are heavily used in asynchronous operations such as reading files, making HTTP requests, and handling timers.
+
+### Example: Using Callbacks with `setTimeout`
+
+```javascript
+function delayedMessage(callback) {
+  setTimeout(() => {
+    console.log("This message is delayed");
+    callback();
+  }, 2000);
+}
+
+delayedMessage(() => console.log("Callback executed!"));
+// Output (after 2 seconds):
+// This message is delayed
+// Callback executed!
+```
+
+### Example: Callback in an API Call (Simulated with `setTimeout`)
+
+```javascript
+function fetchData(callback) {
+  console.log("Fetching data...");
+  setTimeout(() => {
+    let data = { name: "John", age: 30 };
+    callback(data);
+  }, 3000);
+}
+
+function displayData(data) {
+  console.log("Data received:", data);
+}
+
+fetchData(displayData);
+// Output (after 3 seconds):
+// Fetching data...
+// Data received: { name: "John", age: 30 }
+```
+
+## Callback Hell (Nested Callbacks)
+
+When multiple callbacks are nested, it leads to complex and hard-to-maintain code, known as "callback hell."
+
+### Example of Callback Hell
+
+```javascript
+function step1(callback) {
+  setTimeout(() => {
+    console.log("Step 1 completed");
+    callback();
+  }, 1000);
+}
+
+function step2(callback) {
+  setTimeout(() => {
+    console.log("Step 2 completed");
+    callback();
+  }, 1000);
+}
+
+function step3(callback) {
+  setTimeout(() => {
+    console.log("Step 3 completed");
+    callback();
+  }, 1000);
+}
+
+step1(() => {
+  step2(() => {
+    step3(() => {
+      console.log("All steps completed");
+    });
+  });
+});
+```
+
+## Solving Callback Hell with Promises
+
+To avoid callback hell, JavaScript introduced **Promises**, which make asynchronous code more readable and maintainable.
+
+### Example Using Promises Instead of Callbacks
+
+```javascript
+function step1() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Step 1 completed");
+      resolve();
+    }, 1000);
+  });
+}
+
+function step2() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Step 2 completed");
+      resolve();
+    }, 1000);
+  });
+}
+
+function step3() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Step 3 completed");
+      resolve();
+    }, 1000);
+  });
+}
+
+step1()
+  .then(step2)
+  .then(step3)
+  .then(() => console.log("All steps completed"));
+```
+
+## Summary
+
+- **Callback functions** allow functions to be passed as arguments to other functions for later execution.
+- They are widely used in **asynchronous programming**, such as timers, event handling, and API requests.
+- **Callback hell** occurs when multiple nested callbacks make the code difficult to read and maintain.
+- **Promises** and **async/await** provide better alternatives to callback-based asynchronous programming.
+
+Using callbacks effectively can enhance the efficiency and responsiveness of JavaScript applications, making them suitable for real-world scenarios like UI interactions and server-side operations.
 
 ## 50. What are Promises?
 
@@ -2953,8 +3523,110 @@ async function fetchData() {
 
 **Explanation:**
 
-- Spread: Expands an array.
-- Rest: Collects arguments into an array.
+JavaScript provides two powerful operators, the **spread (`...`) operator** and the **rest (`...`) operator**, which look identical but serve different purposes based on how and where they are used.
+
+---
+
+## 1. **Spread Operator (`...`)**
+
+The **spread operator** expands an iterable (like an array, string, or object) into individual elements.
+
+### **Use Cases of Spread Operator**
+
+#### 1.1 Expanding an Array
+
+```javascript
+const numbers = [1, 2, 3];
+console.log(...numbers); // Output: 1 2 3
+```
+
+#### 1.2 Copying an Array
+
+```javascript
+const originalArray = [1, 2, 3];
+const copiedArray = [...originalArray];
+console.log(copiedArray); // Output: [1, 2, 3]
+```
+
+#### 1.3 Merging Arrays
+
+```javascript
+const array1 = [1, 2, 3];
+const array2 = [4, 5, 6];
+const mergedArray = [...array1, ...array2];
+console.log(mergedArray); // Output: [1, 2, 3, 4, 5, 6]
+```
+
+#### 1.4 Spreading in Function Arguments
+
+```javascript
+function sum(a, b, c) {
+  return a + b + c;
+}
+const nums = [1, 2, 3];
+console.log(sum(...nums)); // Output: 6
+```
+
+#### 1.5 Copying and Merging Objects
+
+```javascript
+const person = { name: "Alice", age: 25 };
+const updatedPerson = { ...person, city: "New York" };
+console.log(updatedPerson); // Output: { name: "Alice", age: 25, city: "New York" }
+```
+
+---
+
+## 2. **Rest Operator (`...`)**
+
+The **rest operator** collects multiple elements into a single array or object. It is mainly used in function parameters and destructuring.
+
+### **Use Cases of Rest Operator**
+
+#### 2.1 Gathering Function Arguments
+
+```javascript
+function sum(...numbers) {
+  return numbers.reduce((acc, num) => acc + num, 0);
+}
+console.log(sum(1, 2, 3, 4)); // Output: 10
+```
+
+#### 2.2 Rest Operator in Destructuring
+
+```javascript
+const [first, second, ...rest] = [10, 20, 30, 40, 50];
+console.log(first); // Output: 10
+console.log(second); // Output: 20
+console.log(rest); // Output: [30, 40, 50]
+```
+
+```javascript
+const personDetails = { name: "Bob", age: 28, country: "USA" };
+const { name, ...otherDetails } = personDetails;
+console.log(name); // Output: Bob
+console.log(otherDetails); // Output: { age: 28, country: "USA" }
+```
+
+---
+
+## 3. **Key Differences**
+
+| Feature       | Spread Operator (`...`)                         | Rest Operator (`...`)                         |
+| ------------- | ----------------------------------------------- | --------------------------------------------- |
+| Purpose       | Expands elements into individual items          | Collects multiple elements into an array      |
+| Usage Context | Used in arrays, objects, and function arguments | Used in function parameters and destructuring |
+| Example       | `const newArr = [...arr]` (expands)             | `function sum(...args) {}` (gathers)          |
+
+---
+
+## 4. **Final Thoughts**
+
+- The **spread operator** is used to expand elements (arrays, objects, function arguments).
+- The **rest operator** is used to collect multiple values into a single array or object.
+- Though they look the same (`...`), their functionality differs based on the context in which they are used.
+
+Both operators make JavaScript more powerful and concise by improving code readability and flexibility. 🚀
 
 ## 53. What are Default Parameters?
 
@@ -2974,14 +3646,215 @@ function greet(name = "Guest") {
 
 **Explanation:**
 
-- Temporary objects created for primitive values to access methods.
+In JavaScript, **Wrapper Objects** are temporary objects that wrap around primitive values, allowing them to access methods and properties like objects. JavaScript provides three main wrapper objects:
+
+- **String** for string values
+- **Number** for number values
+- **Boolean** for boolean values
+
+These wrapper objects enable primitive data types to behave like objects when necessary.
+
+## How Wrapper Objects Work
+
+JavaScript automatically creates a temporary object when a method is called on a primitive value. Once the method is executed, the temporary object is discarded.
+
+### Example:
+
+```javascript
+const str = "hello";
+console.log(str.toUpperCase()); // Output: "HELLO"
+```
+
+Behind the scenes, JavaScript performs the following steps:
+
+1. Creates a temporary `String` object: `new String("hello")`
+2. Calls the `toUpperCase()` method on that object.
+3. Returns the result and discards the temporary object.
+
+## Types of Wrapper Objects
+
+### String Wrapper Object
+
+```javascript
+const str = new String("hello");
+console.log(str.length); // Output: 5
+console.log(str[0]); // Output: "h"
+```
+
+### Number Wrapper Object
+
+```javascript
+const num = new Number(100);
+console.log(num.toFixed(2)); // Output: "100.00"
+```
+
+### Boolean Wrapper Object
+
+```javascript
+const bool = new Boolean(true);
+console.log(bool.toString()); // Output: "true"
+```
+
+## Key Characteristics of Wrapper Objects
+
+- Wrapper objects are created **temporarily** when using primitive types and their methods.
+- When manually instantiated using `new`, they behave as objects.
+- They are **not** the same as primitive values.
+
+### Example of Difference Between Primitive and Wrapper Object
+
+```javascript
+const primitiveStr = "hello";
+const objectStr = new String("hello");
+
+console.log(typeof primitiveStr); // Output: "string"
+console.log(typeof objectStr); // Output: "object"
+console.log(primitiveStr === objectStr); // Output: false
+```
+
+## When to Use Wrapper Objects?
+
+1. **Implicit Usage (Recommended)**: Let JavaScript handle wrapper objects internally when working with primitives.
+2. **Explicit Usage (Rare Cases)**: Use `new String()`, `new Number()`, or `new Boolean()` when strictly requiring an object type (e.g., working with prototypes or object-based operations).
+
+### Avoid Using Explicit Wrapper Objects:
+
+Using wrapper objects explicitly can cause unexpected behavior in comparisons:
+
+```javascript
+console.log(new Boolean(false) ? "Truthy" : "Falsy"); // Output: "Truthy" (because it's an object)
+```
+
+## Summary
+
+- **Wrapper objects** enable primitive values to use object-like properties and methods.
+- **Temporary wrapper objects** are created automatically by JavaScript and discarded immediately.
+- **Manually creating wrapper objects** using `new` can lead to unintended issues and should generally be avoided.
+
+Wrapper objects are a fundamental concept in JavaScript, ensuring a seamless interaction between primitive and object-based values!
 
 ## 55. What is the difference between Implicit and Explicit Coercion?
 
 **Explanation:**
 
-- Implicit: Automatic type conversion.
-- Explicit: Manual type conversion.
+Type Coercion in JavaScript is the process of converting a value from one data type to another automatically or manually. It happens in scenarios where JavaScript expects a certain data type and attempts to convert values accordingly.
+
+JavaScript performs two types of type coercion:
+
+1. **Implicit Coercion** (Type conversion is done automatically by JavaScript)
+2. **Explicit Coercion** (Type conversion is manually done by the developer)
+
+---
+
+## Implicit Type Coercion
+
+Implicit Coercion occurs when JavaScript automatically converts a value from one type to another without explicit instructions. This mostly happens in operations that involve different data types.
+
+### Examples of Implicit Coercion
+
+#### 1. String Coercion
+
+```javascript
+console.log("5" + 3); // Output: "53"
+console.log("5" + true); // Output: "5true"
+console.log("5" + null); // Output: "5null"
+```
+
+> In these cases, the `+` operator triggers **string concatenation**, converting numbers and booleans into strings.
+
+#### 2. Numeric Coercion
+
+```javascript
+console.log("5" - 3); // Output: 2
+console.log("5" * 3); // Output: 15
+console.log("10" / "2"); // Output: 5
+```
+
+> Here, JavaScript converts strings into numbers because `-`, `*`, and `/` expect numeric operands.
+
+#### 3. Boolean Coercion
+
+```javascript
+console.log(Boolean("Hello")); // Output: true
+console.log(Boolean("")); // Output: false
+console.log(Boolean(0)); // Output: false
+console.log(Boolean(1)); // Output: true
+```
+
+> Falsy values: `0`, `""`, `null`, `undefined`, `NaN`, `false`
+> Truthy values: Any non-empty string, non-zero number, objects, arrays, etc.
+
+---
+
+## Explicit Type Coercion
+
+Explicit Coercion is when a developer **forcibly converts** a value from one type to another using built-in JavaScript functions.
+
+### Examples of Explicit Coercion
+
+#### 1. String Conversion
+
+```javascript
+console.log(String(123)); // Output: "123"
+console.log(String(true)); // Output: "true"
+console.log((456).toString()); // Output: "456"
+```
+
+#### 2. Number Conversion
+
+```javascript
+console.log(Number("123")); // Output: 123
+console.log(Number("abc")); // Output: NaN
+console.log(parseInt("12.34")); // Output: 12
+console.log(parseFloat("12.34")); // Output: 12.34
+```
+
+#### 3. Boolean Conversion
+
+```javascript
+console.log(Boolean(0)); // Output: false
+console.log(Boolean(1)); // Output: true
+console.log(Boolean("Hello")); // Output: true
+```
+
+---
+
+## Key Differences Between Implicit and Explicit Coercion
+
+| Feature     | Implicit Coercion                                                                 | Explicit Coercion                                                     |
+| ----------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Control     | Happens automatically by JavaScript                                               | Done manually by the developer                                        |
+| Readability | Can sometimes lead to unexpected results                                          | More predictable and explicit                                         |
+| Usage       | Happens in operations involving different types (`+`, `-`, `*`, `/`, comparisons) | Uses functions like `String()`, `Number()`, `Boolean()`, `parseInt()` |
+| Example     | `"5" + 3 → "53"` (string concatenation)                                           | `Number("5") → 5` (explicit conversion)                               |
+
+---
+
+## Best Practices
+
+- **Avoid implicit coercion where possible**, as it can lead to unexpected behavior.
+- **Use explicit coercion** to improve readability and maintainability.
+- **Be mindful of falsy and truthy values**, as they can impact conditional logic.
+- **Use `===` (strict equality) instead of `==`**, as `==` allows implicit coercion.
+
+### Example of Unexpected Behavior
+
+```javascript
+console.log([] == false); // Output: true
+console.log(null == undefined); // Output: true
+console.log(" \t\n" == 0); // Output: true
+```
+
+> These occur due to implicit coercion, which can be avoided using strict equality (`===`).
+
+---
+
+## Summary
+
+- **Implicit Coercion**: JavaScript automatically converts types in certain operations.
+- **Explicit Coercion**: Developers manually convert types using built-in functions.
+- **Explicit coercion is preferred** for clarity and maintainability.
+- **Understanding coercion helps prevent unexpected behavior and improves code quality.**
 
 ## 56. What is NaN? and How to check if a value is NaN?
 
@@ -3022,14 +3895,176 @@ const isEven = (num) => (num & 1) === 0;
 ## 60. What is AJAX?
 
 **Explanation:**
+AJAX (Asynchronous JavaScript and XML) is a technique used in web development to create dynamic and interactive web applications. It allows web pages to send and receive data from a server asynchronously without refreshing the entire page.
 
-- Asynchronous JavaScript and XML for server communication without reloading the page.
+## How AJAX Works
+
+AJAX uses the `XMLHttpRequest` object or modern `fetch()` API to communicate with a server. The general workflow involves:
+
+1. A user triggers an event (e.g., clicking a button).
+2. JavaScript sends a request to the server.
+3. The server processes the request and sends back a response.
+4. JavaScript updates the web page dynamically without requiring a full page reload.
+
+## Example Using `XMLHttpRequest`
+
+```javascript
+const xhr = new XMLHttpRequest();
+xhr.open("GET", "https://jsonplaceholder.typicode.com/posts/1", true);
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    console.log(JSON.parse(xhr.responseText));
+  }
+};
+xhr.send();
+```
+
+## Example Using `fetch()` API
+
+```javascript
+fetch("https://jsonplaceholder.typicode.com/posts/1")
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error("Error:", error));
+```
+
+## Advantages of AJAX
+
+- **Improves user experience** by allowing updates without full page reloads.
+- **Enhances performance** by reducing server load and bandwidth usage.
+- **Allows asynchronous operations** for seamless data retrieval.
+- **Supports multiple data formats** like JSON, XML, HTML, and text.
+
+## Disadvantages of AJAX
+
+- **Increases complexity** due to asynchronous nature.
+- **SEO challenges** since content loading dynamically may not be indexed properly.
+- **Security concerns** as client-side scripts expose endpoints to potential attacks.
+
+## Conclusion
+
+AJAX plays a crucial role in modern web applications by enabling dynamic content updates without refreshing the page. With the adoption of `fetch()` and modern APIs, AJAX has become more efficient and easier to implement.
 
 ## 61. What are the ways of making objects in JavaScript?
 
 **Explanation:**
+JavaScript provides multiple ways to create objects. Below are the different approaches with examples:
 
-- Using object literals, `Object.create`, `class`, or constructor functions.
+## 1. Object Literals
+
+This is the simplest and most commonly used way to create objects in JavaScript.
+
+```javascript
+const person = {
+  name: "Alice",
+  age: 25,
+  greet: function () {
+    console.log(`Hello, my name is ${this.name}`);
+  },
+};
+
+person.greet(); // Output: Hello, my name is Alice
+```
+
+## 2. Using the `new Object()` Constructor
+
+This approach uses JavaScript's built-in `Object` constructor.
+
+```javascript
+const person = new Object();
+person.name = "Bob";
+person.age = 30;
+person.greet = function () {
+  console.log(`Hello, my name is ${this.name}`);
+};
+
+person.greet(); // Output: Hello, my name is Bob
+```
+
+## 3. Using a Constructor Function
+
+A constructor function allows creating multiple objects with the same structure.
+
+```javascript
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.greet = function () {
+    console.log(`Hello, my name is ${this.name}`);
+  };
+}
+
+const person1 = new Person("Charlie", 35);
+person1.greet(); // Output: Hello, my name is Charlie
+```
+
+## 4. Using the `Object.create()` Method
+
+The `Object.create()` method creates an object using a prototype object.
+
+```javascript
+const personPrototype = {
+  greet: function () {
+    console.log(`Hello, my name is ${this.name}`);
+  },
+};
+
+const person2 = Object.create(personPrototype);
+person2.name = "David";
+person2.greet(); // Output: Hello, my name is David
+```
+
+## 5. Using ES6 Classes
+
+Classes provide a more structured and modern way to create objects in JavaScript.
+
+```javascript
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  greet() {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+}
+
+const person3 = new Person("Emma", 28);
+person3.greet(); // Output: Hello, my name is Emma
+```
+
+## 6. Using Factory Functions
+
+A factory function returns an object without using the `new` keyword.
+
+```javascript
+function createPerson(name, age) {
+  return {
+    name,
+    age,
+    greet() {
+      console.log(`Hello, my name is ${this.name}`);
+    },
+  };
+}
+
+const person4 = createPerson("Frank", 40);
+person4.greet(); // Output: Hello, my name is Frank
+```
+
+## Conclusion
+
+Each method has its use case:
+
+- **Object literals** are best for simple objects.
+- **`new Object()`** is rarely used but provides flexibility.
+- **Constructor functions** allow object instantiation before ES6.
+- **`Object.create()`** is useful for prototypal inheritance.
+- **Classes** provide an OOP-friendly syntax.
+- **Factory functions** allow flexible object creation without `new`.
+
+Understanding these approaches is essential for JavaScript developers, especially for building scalable applications.
 
 ## 62. What's the difference between Object.seal and Object.freeze methods?
 
@@ -3037,3 +4072,178 @@ const isEven = (num) => (num & 1) === 0;
 
 - `Object.seal`: Prevents adding/removing properties.
 - `Object.freeze`: Prevents adding/removing/modifying properties.
+
+## Object.seal()
+
+The `Object.seal()` method prevents new properties from being added or existing properties from being deleted from an object. However, the values of existing properties can still be modified.
+
+### Characteristics:
+
+- Cannot add new properties.
+- Cannot delete existing properties.
+- Can modify existing property values.
+- The object remains extensible but with limited modifications.
+
+### Example:
+
+```javascript
+const user = { name: "Alice", age: 25 };
+Object.seal(user);
+
+user.age = 30; // ✅ Allowed
+user.city = "New York"; // ❌ Not allowed (Cannot add new properties)
+delete user.name; // ❌ Not allowed (Cannot delete properties)
+
+console.log(user); // { name: "Alice", age: 30 }
+```
+
+## Object.freeze()
+
+The `Object.freeze()` method prevents new properties from being added, existing properties from being deleted, and existing properties from being modified. It makes the object completely immutable.
+
+### Characteristics:
+
+- Cannot add new properties.
+- Cannot delete existing properties.
+- Cannot modify existing property values.
+- The object becomes completely read-only.
+
+### Example:
+
+```javascript
+const config = { mode: "dark", version: 1.0 };
+Object.freeze(config);
+
+config.mode = "light"; // ❌ Not allowed (Cannot modify properties)
+config.theme = "blue"; // ❌ Not allowed (Cannot add new properties)
+delete config.version; // ❌ Not allowed (Cannot delete properties)
+
+console.log(config); // { mode: "dark", version: 1.0 }
+```
+
+## Key Differences
+
+| Feature              | `Object.seal()`                                                    | `Object.freeze()`       |
+| -------------------- | ------------------------------------------------------------------ | ----------------------- |
+| Add new properties   | ❌ Not Allowed                                                     | ❌ Not Allowed          |
+| Delete properties    | ❌ Not Allowed                                                     | ❌ Not Allowed          |
+| Modify properties    | ✅ Allowed                                                         | ❌ Not Allowed          |
+| Object extensibility | 🚫 Prevents property addition and deletion but allows modification | ❌ Completely immutable |
+
+## When to Use
+
+- **Use `Object.seal()`** when you want to allow modifications to existing properties but prevent new properties or deletion.
+- **Use `Object.freeze()`** when you want to make the object completely immutable and prevent any changes.
+
+### Summary
+
+- `Object.seal()` allows modification of properties but prevents addition and deletion.
+- `Object.freeze()` makes the object completely immutable by preventing any changes.
+
+Both methods are useful when you need to enforce strict control over object modifications in JavaScript.
+
+# JavaScript's ALL Object Property Manipulation Methods
+
+## 1. Object.preventExtensions()
+
+- **Prevents new properties from being added to an object.**
+- Existing properties can still be modified or deleted.
+
+```javascript
+const obj = { name: "John" };
+Object.preventExtensions(obj);
+
+obj.age = 30; // ❌ This won't work, as new properties can't be added.
+obj.name = "Doe"; // ✅ Allowed, modification is possible.
+delete obj.name; // ✅ Allowed, deletion is possible.
+
+console.log(obj); // Output: {}
+```
+
+---
+
+## 2. Object.seal()
+
+- **Prevents new properties from being added or existing properties from being deleted.**
+- Modification of existing properties is still allowed.
+
+```javascript
+const obj = { name: "John" };
+Object.seal(obj);
+
+obj.age = 30; // ❌ This won't work, as new properties can't be added.
+delete obj.name; // ❌ This won't work, as deletion is prevented.
+obj.name = "Doe"; // ✅ Allowed, modification is possible.
+
+console.log(obj); // Output: { name: "Doe" }
+```
+
+---
+
+## 3. Object.freeze()
+
+- **Prevents new properties from being added, existing properties from being deleted, and existing properties from being modified.**
+- The object becomes completely immutable.
+
+```javascript
+const obj = { name: "John" };
+Object.freeze(obj);
+
+obj.age = 30; // ❌ Not allowed, new properties can't be added.
+delete obj.name; // ❌ Not allowed, deletion is prevented.
+obj.name = "Doe"; // ❌ Not allowed, modification is prevented.
+
+console.log(obj); // Output: { name: "John" }
+```
+
+---
+
+## 4. Object.isExtensible()
+
+- **Checks if new properties can be added to an object.**
+
+```javascript
+const obj = { name: "John" };
+console.log(Object.isExtensible(obj)); // true
+
+Object.preventExtensions(obj);
+console.log(Object.isExtensible(obj)); // false
+```
+
+---
+
+## 5. Object.isSealed()
+
+- **Checks if an object is sealed (i.e., new properties cannot be added or deleted, but modification is allowed).**
+
+```javascript
+const obj = { name: "John" };
+console.log(Object.isSealed(obj)); // false
+
+Object.seal(obj);
+console.log(Object.isSealed(obj)); // true
+```
+
+---
+
+## 6. Object.isFrozen()
+
+- **Checks if an object is frozen (i.e., completely immutable).**
+
+```javascript
+const obj = { name: "John" };
+console.log(Object.isFrozen(obj)); // false
+
+Object.freeze(obj);
+console.log(Object.isFrozen(obj)); // true
+```
+
+---
+
+## **Summary Table**
+
+| Method                       | Add Properties | Delete Properties | Modify Properties | Completely Immutable |
+| ---------------------------- | -------------- | ----------------- | ----------------- | -------------------- |
+| `Object.preventExtensions()` | ❌ No          | ✅ Yes            | ✅ Yes            | No                   |
+| `Object.seal()`              | ❌ No          | ❌ No             | ✅ Yes            | No                   |
+| `Object.freeze()`            | ❌ No          | ❌ No             | ❌ No             | ✅ Yes               |
