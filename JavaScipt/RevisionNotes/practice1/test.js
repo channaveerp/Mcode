@@ -1,42 +1,41 @@
-const p1 = new Promise((resolve, reject) => {
+let arr = [1, 2, 3, 4, 5, 6, 6, 7, 8, 9, 9, 9, 8];
+let obj = {};
+for (i of arr) {
+  if (obj[i]) {
+    obj[i]++;
+  } else {
+    obj[i] = 1;
+  }
+}
+
+// console.log(obj);
+
+function logA() {
+  console.log("A");
+}
+function logB() {
+  console.log("B");
+}
+function logC() {
+  console.log("C");
+}
+function logD() {
+  console.log("D");
+}
+
+// Click the "RUN" button to learn how this works!
+logA();
+let a = new Promise((resolve) => {
   setTimeout(() => {
-    resolve("1 is resolved");
+    resolve(1);
   }, 1000);
 });
-
-const p2 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("2 is resolved");
-  }, 2000);
-});
-
-const p3 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("3 is resolved");
-  }, 3000);
-});
-
-const p4 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("4 is resolved");
-  }, 4000);
-});
-
-const p5 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("5 is resolved");
-  }, 4000);
-});
-
-const p6 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("6 is resolved");
-  }, 4000);
-});
-
-setTimeout(() => {
-  console.log("set time out");
-}, 4000);
-
-const res = Promise.all([p1, p2, p3, p4, p5, p6]);
-res.then((data) => console.log(data));
+async function getData() {
+  let ans = await a;
+  console.log("ANS", ans);
+  // return ans;
+}
+console.log("E", getData());
+setTimeout(logB, 0);
+Promise.resolve().then(logC);
+logD();
