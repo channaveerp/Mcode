@@ -1,41 +1,60 @@
-let arr = [1, 2, 3, 4, 5, 6, 6, 7, 8, 9, 9, 9, 8];
-let obj = {};
-for (i of arr) {
-  if (obj[i]) {
-    obj[i]++;
-  } else {
-    obj[i] = 1;
-  }
-}
+// const arr = [];
+// const forEachArr = [];
+// const limit = 10;
 
-// console.log(obj);
+// for (let i = 0; i < limit; i++) {
+//   let randomNumber = Math.floor(Math.random() * 100);
 
-function logA() {
-  console.log("A");
-}
-function logB() {
-  console.log("B");
-}
-function logC() {
-  console.log("C");
-}
-function logD() {
-  console.log("D");
-}
+//   arr.push(randomNumber);
+// }
+// console.log("REGULAR", arr);
 
-// Click the "RUN" button to learn how this works!
-logA();
-let a = new Promise((resolve) => {
-  setTimeout(() => {
-    resolve(1);
-  }, 1000);
-});
-async function getData() {
-  let ans = await a;
-  console.log("ANS", ans);
-  // return ans;
-}
-console.log("E", getData());
-setTimeout(logB, 0);
-Promise.resolve().then(logC);
-logD();
+// // for (let i = 0; i < arr.length; i++) {
+// //   if (arr[i] % 2 == 0) {
+// //     arr[i] = arr[i] * 2;
+// //   }
+// // }
+// // console.log("WITH_DOOUBLE_EVEN", arr);
+
+// arr.forEach((item) => {
+//   if (item % 2 == 0) {
+//     forEachArr.push(item * 2);
+//   } else {
+//     forEachArr.push(item);
+//   }
+// });
+// console.log("WITH_DOOUBLE_EVEN", forEachArr);
+
+// const newArr = arr.map((item) => {
+//   if (item % 2 == 0) {
+//     return item * 2;
+//   } else {
+//     return item;
+//   }
+// });
+// // console.log("WITH_DOOUBLE_EVEN", newArr);
+// // newArra
+// const [one, two, ...rest] = arr
+
+const a = {
+  name: "Alice",
+  add: {
+    city: "Pune",
+  },
+};
+const b = {
+  name: "Alice",
+  add: {
+    city: "Pune",
+  },
+};
+
+console.log(a == b);
+console.log(a === b);
+
+const c = a;
+console.log(a === c);
+
+// let d = {};
+// let e = d;
+// console.log(d == {});
